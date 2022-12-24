@@ -21,4 +21,8 @@ body #mainClicker {
 }
 body #score {
   color: white;
+}
+body .disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }/*# sourceMappingURL=style.css.map */

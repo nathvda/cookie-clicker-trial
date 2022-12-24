@@ -24,4 +24,11 @@ body{
     #score{
         color:white;
     }
+
+    .disabled{
+        pointer-events: none;
+        opacity:0.4;
+    }
+
+
 }
