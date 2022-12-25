@@ -30,5 +30,17 @@ body{
         opacity:0.4;
     }
 
+    .controller{
+        height:100px;
+        width:100px;
+        position:relative;
+
+        .cont{
+            position:absolute;
+            bottom:0;
+            right:0;
+        }
+    }
+
 
 }

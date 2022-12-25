@@ -25,4 +25,14 @@ body #score {
 body .disabled {
   pointer-events: none;
   opacity: 0.4;
+}
+body .controller {
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+body .controller .cont {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }/*# sourceMappingURL=style.css.map */

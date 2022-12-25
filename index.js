@@ -11,6 +11,10 @@ let VALUES = [
   }
 ];
 
+setInterval(() => {
+  document.title = score.toFixed(0) + " cookies";
+}, 2000)
+
 let mainClicker = document.getElementById("mainClicker");
 
 let controller1 = document.getElementById("controller-1");
@@ -42,6 +46,11 @@ controller1.addEventListener("click", () => {
     score -= VALUES[0].price;
     scoreBox.innerText = Math.floor(score);
     con1.innerText = `${VALUES[0].amount}`;
+    if (score < VALUES[0].price){
+      controller1.classList.add("disabled");
+    } else { 
+      controller1.classList.remove("disabled");
+    }
 
     } else {
         console.log("Can't buy that");
@@ -49,11 +58,17 @@ controller1.addEventListener("click", () => {
 })
 
 controller2.addEventListener("click", () => {
-    if (score >= VALUES[0].price){
+    if (score >= VALUES[1].price){
     VALUES[1].amount++;
-    score -= VALUES[0].price;
+    score -= VALUES[1].price;
     scoreBox.innerText = Math.floor(score);
     con2.innerText = `${VALUES[1].amount}`;
+    if (score < VALUES[1].price){
+      controller2.classList.add("disabled");
+    } else { 
+      controller2.classList.remove("disabled");
+    }
+    
 } else {
     console.log("Can't buy that");
 }
@@ -78,9 +93,7 @@ setInterval(() => {
 
   totalScore += VALUES[0].amount * VALUES[0].multiplier;
   totalScore += VALUES[1].amount * VALUES[1].multiplier;
-
-  scoreBox.innerText = Math.floor(score);
-
+  
   if (score <= VALUES[0].price){
     controller1.classList.add("disabled");
   } else { 
@@ -92,7 +105,11 @@ setInterval(() => {
   } else { 
     controller2.classList.remove("disabled");
   }
-
   console.log(VALUES);
 }, 1000);
 
+function displayScore(){
+  scoreBox.innerText = Math.floor(score);
+}
+
+setInterval(displayScore, 100);
