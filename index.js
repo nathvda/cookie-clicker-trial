@@ -1,8 +1,7 @@
 setInterval(() => {
   localStorage.setItem("score", score);
-  alert("Partie sauvegardée");
-
-}, 10000);
+  console.log("partie sauvegardée");
+}, 1000);
 
 let VALUES = [
   {
@@ -22,6 +21,10 @@ let VALUES = [
   }
 ];
 
+let valeurs = localStorage.getItem("valeurs");
+VALUES = JSON.parse(valeurs);
+console.log(VALUES);
+
 setInterval(() => {
   document.title = score.toFixed(0) + " cookies";
 }, 2000)
@@ -40,6 +43,10 @@ let prix1 = document.getElementById("prix1");
 let prix2 = document.getElementById("prix2");
 let prix3 = document.getElementById("prix3");
 
+con1.innerText = `${VALUES[0].amount}`;
+con2.innerText = `${VALUES[1].amount}`;
+con3.innerText = `${VALUES[2].amount}`;
+
 prix1.innerText = VALUES[0].price;
 prix2.innerText = VALUES[1].price;
 prix3.innerText = VALUES[2].price;
@@ -47,8 +54,9 @@ prix3.innerText = VALUES[2].price;
 let scoreBox = document.getElementById("score");
 
 let clicvalue = 1;
-let score = 0;
-let totalScore = 0;
+let saved = localStorage.getItem("score");
+let score = Number(saved);
+let totalScore = Number(saved);
 
 scoreBox.innerText = Math.floor(score);
 
@@ -69,6 +77,7 @@ controller1.addEventListener("click", () => {
     con1.innerText = `${VALUES[0].amount}`;
     VALUES[0].price *= 1.2;
     prix1.innerText = VALUES[0].price.toFixed(2);
+    localStorage.setItem("valeurs", JSON.stringify(VALUES));
     if (score < VALUES[0].price){
       controller1.classList.add("disabled");
     } else { 
@@ -88,6 +97,7 @@ controller2.addEventListener("click", () => {
     con2.innerText = `${VALUES[1].amount}`;
     VALUES[1].price *= 1.2;
     prix2.innerText = VALUES[1].price.toFixed(2);
+    localStorage.setItem("valeurs", JSON.stringify(VALUES));
     if (score < VALUES[1].price){
       controller2.classList.add("disabled");
     } else { 
@@ -108,6 +118,7 @@ controller3.addEventListener("click", () => {
   con3.innerText = `${VALUES[2].amount}`;
   VALUES[2].price *= 1.2;
   prix3.innerText = VALUES[2].price.toFixed(2);
+  localStorage.setItem("valeurs", JSON.stringify(VALUES));
 
   if (score < VALUES[2].price){
     controller3.classList.add("disabled");
