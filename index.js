@@ -1,51 +1,78 @@
 let score = 0;
-
-setInterval(() => {
-  localStorage.setItem("score", score);
-  localStorage.setItem("valeurs", JSON.stringify(VALUES));
-  console.log("partie sauvegardée");
-}, 1000);
+let prodPerSec = 0;
 
 let VALUES = [
   {
+    name: "Gumlin",
     amount: 0,
     multiplier: 0.4,
     price: 15,
+    background: "./assets/Gumlins.png"
   },
   {
+    name: "SuperGumlin",
     amount: 0,
     multiplier: 2,
     price: 30,
+    background: "./assets/SuperGumlins.png"
   },
   {
+    name:"HyperGumlin",
     amount: 0,
     multiplier: 4,
     price: 60,
+    background: "./assets/HyperGumlins.png"
   },
   {
+    name: "MetaGumlin",
     amount: 0,
     multiplier: 8,
     price: 120,
+    background: "./assets/MetaGumlins.png"
   },
+  {
+    name: "TetaGumlin",
+    amount: 0,
+    multiplier: 16,
+    price: 240,
+    background: "./assets/Gumlins.png"
+  },
+  {
+    name: "GigaGumlin",
+    amount: 0,
+    multiplier: 32,
+    price: 480,
+    background: "./assets/Gumlins.png"
+  },
+  {
+    name: "SupraGumlin",
+    amount: 0,
+    multiplier: 64,
+    price: 960,
+    background: "./assets/Gumlins.png"
+  }
 ];
+
+setInterval(() => {
+  localStorage.setItem("score", score);
+  console.log("partie sauvegardée");
+}, 1000);
+
+
 
 window.addEventListener("load", loadGame);
 
 function loadGame() {
   let valeurs = localStorage.getItem("valeurs");
   let stored = JSON.parse(valeurs);
-  if (typeof VALUES !== null) VALUES = stored;
-  console.log(VALUES);
+  // if (typeof VALUES !== null) VALUES = stored;
+  // console.log(VALUES);
 
-  con1.innerText = `${VALUES[0].amount}`;
-  con2.innerText = `${VALUES[1].amount}`;
-  con3.innerText = `${VALUES[2].amount}`;
-  con4.innerText = `${VALUES[3].amount}`;
+  for (let i = 0; i < VALUES.length ; i++){
+    document.getElementById(`cont-${i}`).innerText = `${VALUES[i].amount}`;
+    document.getElementById(`prix-${i}`).innerText = `${VALUES[i].price}`;
 
-  prix1.innerText = VALUES[0].price;
-  prix2.innerText = VALUES[1].price;
-  prix3.innerText = VALUES[2].price;
-  prix4.innerText = VALUES[3].price;
+  }
 }
 
 setInterval(() => {
@@ -53,21 +80,62 @@ setInterval(() => {
 }, 2000);
 
 let mainClicker = document.getElementById("mainClicker");
+let upgrades = document.getElementById("upgrades");
+let shop = document.getElementById("shop");
 
-let controller1 = document.getElementById("controller-1");
-let controller2 = document.getElementById("controller-2");
-let controller3 = document.getElementById("controller-3");
-let controller4 = document.getElementById("controller-4");
+for (let i = 0 ; i < VALUES.length ; i++){
+let element = document.createElement("button");
+element.setAttribute("id", `controller-${i+1}`);
+element.classList.add("controller", "disabled", "hidden");
+element.style.backgroundImage = `url("${VALUES[i].background}")`;
+let elementName = document.createElement("span");
+elementName.classList.add("multname");
+let elementNameText = document.createTextNode(`${VALUES[i].name}`);
+let elementValeur = document.createElement("span");
+elementValeur.classList.add("valeur");
+let elementValeurText = document.createTextNode(`${VALUES[i].multiplier}`);
+let elementCont = document.createElement("span");
+elementCont.classList.add("cont");
+elementCont.setAttribute("id", `cont-${1}`);
+let elementContText = document.createTextNode(`${VALUES[i].amount}`);
+let elementPrice = document.createElement("span");
+elementPrice.classList.add("prix");
+elementCont.setAttribute("id", `prix-${1}`);
+let elementPriceText = document.createTextNode(`${VALUES[i].price}`);
 
-let con1 = document.getElementById("con1");
-let con2 = document.getElementById("con2");
-let con3 = document.getElementById("con3");
-let con4 = document.getElementById("con4");
+elementName.appendChild(elementNameText);
+elementValeur.appendChild(elementValeurText);
+elementCont.appendChild(elementContText);
+elementPrice.appendChild(elementPriceText);
+element.appendChild(elementName);
+element.appendChild(elementValeur);
+element.appendChild(elementCont);
+element.appendChild(elementPrice);
 
-let prix1 = document.getElementById("prix1");
-let prix2 = document.getElementById("prix2");
-let prix3 = document.getElementById("prix3");
-let prix4 = document.getElementById("prix4");
+element.addEventListener("click", () => {
+  if (score >= VALUES[i].price) {
+    VALUES[i].amount++;
+    score -= VALUES[i].price;
+    scoreBox.innerText = Math.round(score);
+    elementCont.innerText = `${VALUES[i].amount}`;
+    VALUES[i].price *= 1.2;
+    VALUES[i].price = Math.round(VALUES[i].price);
+    elementPrice.innerText = `${VALUES[i].price}`;
+    localStorage.setItem("valeurs", JSON.stringify(VALUES));
+    if (score < VALUES[i].price) {
+      element.classList.add("disabled");
+    } else {
+      element.classList.remove("disabled");
+    }
+  } else {
+    console.log("Can't buy that");
+  }
+});
+
+
+shop.appendChild(element);
+}
+
 
 let scoreBox = document.getElementById("score");
 let perSecond = document.getElementById("perSec");
@@ -87,154 +155,27 @@ function updateScore() {
 }
 
 mainClicker.addEventListener("click", updateScore);
-controller1.addEventListener("click", () => {
-  if (score >= VALUES[0].price) {
-    VALUES[0].amount++;
-    score -= VALUES[0].price;
-    scoreBox.innerText = Math.round(score);
-    con1.innerText = `${VALUES[0].amount}`;
-    VALUES[0].price *= 1.2;
-    VALUES[0].price = Math.round(VALUES[0].price);
-    prix1.innerText = VALUES[0].price;
-    localStorage.setItem("valeurs", JSON.stringify(VALUES));
-    if (score < VALUES[0].price) {
-      controller1.classList.add("disabled");
-    } else {
-      controller1.classList.remove("disabled");
-    }
-  } else {
-    console.log("Can't buy that");
-  }
-});
-
-controller2.addEventListener("click", () => {
-  if (score >= VALUES[1].price) {
-    VALUES[1].amount++;
-    score -= VALUES[1].price;
-    scoreBox.innerText = Math.round(score);
-    con2.innerText = `${VALUES[1].amount}`;
-    VALUES[1].price *= 1.2;
-    VALUES[1].price = Math.round(VALUES[1].price);
-    prix2.innerText = VALUES[1].price;
-    localStorage.setItem("valeurs", JSON.stringify(VALUES));
-    if (score < VALUES[1].price) {
-      controller2.classList.add("disabled");
-    } else {
-      controller2.classList.remove("disabled");
-    }
-  } else {
-    console.log("Can't buy that");
-  }
-});
-
-controller3.addEventListener("click", () => {
-  if (score >= VALUES[2].price) {
-    VALUES[2].amount++;
-    score -= VALUES[2].price;
-    scoreBox.innerText = Math.round(score);
-    con3.innerText = `${VALUES[2].amount}`;
-    VALUES[2].price *= 1.2;
-    VALUES[2].price = Math.round(VALUES[2].price);
-    prix3.innerText = VALUES[2].price;
-    localStorage.setItem("valeurs", JSON.stringify(VALUES));
-
-    if (score < VALUES[2].price) {
-      controller3.classList.add("disabled");
-    } else {
-      controller3.classList.remove("disabled");
-    }
-  } else {
-    console.log("Can't buy that");
-  }
-});
-
-controller4.addEventListener("click", () => {
-  if (score >= VALUES[3].price) {
-    VALUES[3].amount++;
-    score -= VALUES[3].price;
-    scoreBox.innerText = Math.round(score);
-    con4.innerText = `${VALUES[3].amount}`;
-    VALUES[3].price *= 1.2;
-    VALUES[3].price = Math.round(VALUES[3].price);
-    prix4.innerText = VALUES[3].price;
-    localStorage.setItem("valeurs", JSON.stringify(VALUES));
-
-    if (score < VALUES[3].price) {
-      controller4.classList.add("disabled");
-    } else {
-      controller4.classList.remove("disabled");
-    }
-  } else {
-    console.log("Can't buy that");
-  }
-});
-
-if (score < VALUES[0].price) {
-  controller1.classList.add("disabled");
-} else {
-  controller1.classList.remove("disabled");
-}
-
-if (score < VALUES[1].price) {
-  controller2.classList.add("disabled");
-} else {
-  controller2.classList.remove("disabled");
-}
-
-if (score < VALUES[2].price) {
-  controller3.classList.add("disabled");
-} else {
-  controller3.classList.remove("disabled");
-}
-
-if (score < VALUES[3].price) {
-  controller4.classList.add("disabled");
-} else {
-  controller4.classList.remove("disabled");
-}
 
 setInterval(() => {
-  score += (VALUES[0].amount * VALUES[0].multiplier) / 100;
-  score += (VALUES[1].amount * VALUES[1].multiplier) / 100;
-  score += (VALUES[2].amount * VALUES[2].multiplier) / 100;
-  score += (VALUES[3].amount * VALUES[3].multiplier) / 100;
 
-  totalScore += (VALUES[0].amount * VALUES[0].multiplier) / 100;
-  totalScore += (VALUES[1].amount * VALUES[1].multiplier) / 100;
-  totalScore += (VALUES[2].amount * VALUES[2].multiplier) / 100;
-  totalScore += (VALUES[3].amount * VALUES[3].multiplier) / 100;
+  prodPerSec = 0;
 
-  let prodPerSec =
-  VALUES[0].amount * VALUES[0].multiplier +
-  VALUES[1].amount * VALUES[1].multiplier +
-  VALUES[2].amount * VALUES[2].multiplier +
-  VALUES[3].amount * VALUES[3].multiplier;
+  for (let elem of VALUES){
+    score += (elem.amount * elem.multiplier) / 100;
+    totalScore += (elem.amount * elem.multiplier) / 100;
+    prodPerSec += elem.amount * elem.multiplier;
+  } 
 
   perSecond.innerText = `${prodPerSec} Gumballs per second`;
 
-  if (score < VALUES[0].price) {
-    controller1.classList.add("disabled");
-  } else {
-    controller1.classList.remove("disabled");
-  }
+  for (let i = 0 ; i < VALUES.length ; i++){
+    if  (score < VALUES[i].price){
+   shop.children[i].classList.add("disabled");}
+    else {
+      shop.children[i].classList.remove("disabled");
+   }
+   }
 
-  if (score < VALUES[1].price) {
-    controller2.classList.add("disabled");
-  } else {
-    controller2.classList.remove("disabled");
-  }
-
-  if (score < VALUES[2].price) {
-    controller3.classList.add("disabled");
-  } else {
-    controller3.classList.remove("disabled");
-  }
-
-  if (score < VALUES[3].price) {
-    controller4.classList.add("disabled");
-  } else {
-    controller4.classList.remove("disabled");
-  }
 }, 1);
 
 function displayScore() {
