@@ -1,91 +1,100 @@
+let mainClicker = document.getElementById("mainClicker");
+let upgrades = document.getElementById("upgrades");
+let shop = document.getElementById("shop");
+let scoreBox = document.getElementById("score");
+let perSecond = document.getElementById("perSec");
+
+let clicvalue = 1;
 let score = 0;
 let prodPerSec = 0;
-
 let VALUES = [
   {
-    name: "Gumlin",
+    name: "San",
     amount: 0,
     multiplier: 0.4,
     price: 15,
-    background: "./assets/Gumlins.png"
+    background: "./assets2/Gumlins.png",
+    description: "San's capacity to dance forever."
   },
   {
-    name: "SuperGumlin",
+    name: "Hongjoong",
     amount: 0,
     multiplier: 2,
     price: 30,
-    background: "./assets/SuperGumlins.png"
+    background: "./assets2/SuperGumlins.png"
   },
   {
-    name:"HyperGumlin",
+    name:"Jongho",
     amount: 0,
     multiplier: 4,
     price: 60,
-    background: "./assets/HyperGumlins.png"
+    background: "./assets2/HyperGumlins.png"
   },
   {
-    name: "MetaGumlin",
+    name: "Yeosang",
     amount: 0,
     multiplier: 8,
     price: 120,
-    background: "./assets/MetaGumlins.png"
+    background: "./assets2/MetaGumlins.png"
   },
   {
-    name: "TetaGumlin",
+    name: "Yunho",
     amount: 0,
     multiplier: 16,
     price: 240,
-    background: "./assets/Gumlins.png"
+    background: "./assets2/TetaGumlins.png"
   },
   {
-    name: "GigaGumlin",
+    name: "Seonghwa",
     amount: 0,
     multiplier: 32,
     price: 480,
-    background: "./assets/Gumlins.png"
+    background: "./assets2/GigaGumlins.png"
   },
   {
-    name: "SupraGumlin",
+    name: "Mingi",
     amount: 0,
     multiplier: 64,
     price: 960,
-    background: "./assets/Gumlins.png"
+    background: "./assets2/SupraGumlins.png"
+  },
+  {
+    name: "Wooyoung",
+    amount: 0,
+    multiplier: 128,
+    price: 1920,
+    background: "./assets2/UltimateGumlins.png"
   }
 ];
 
-setInterval(() => {
-  localStorage.setItem("score", score);
-  console.log("partie sauvegardée");
-}, 1000);
-
-
-
 window.addEventListener("load", loadGame);
+
+function saveGame(){
+  localStorage.setItem("score", score);
+  localStorage.setItem("valeurs", JSON.stringify(VALUES));
+  console.log("partie sauvegardée");
+}
+
+setInterval(saveGame, 1000);
 
 function loadGame() {
   let valeurs = localStorage.getItem("valeurs");
   let stored = JSON.parse(valeurs);
-  // if (typeof VALUES !== null) VALUES = stored;
-  // console.log(VALUES);
-
-  for (let i = 0; i < VALUES.length ; i++){
-    document.getElementById(`cont-${i}`).innerText = `${VALUES[i].amount}`;
-    document.getElementById(`prix-${i}`).innerText = `${VALUES[i].price}`;
-
-  }
+  if (stored !== null) VALUES = stored;
+  createButtons();
 }
+
 
 setInterval(() => {
   document.title = score.toFixed(0) + " gumballs - Gumballs Dealer";
 }, 2000);
 
-let mainClicker = document.getElementById("mainClicker");
-let upgrades = document.getElementById("upgrades");
-let shop = document.getElementById("shop");
+function createButtons(){
+  shop.innerHTML = "";
 
-for (let i = 0 ; i < VALUES.length ; i++){
+  for (let i = 0 ; i < VALUES.length ; i++){
 let element = document.createElement("button");
-element.setAttribute("id", `controller-${i+1}`);
+element.setAttribute("id", `controller-${i}`);
 element.classList.add("controller", "disabled", "hidden");
 element.style.backgroundImage = `url("${VALUES[i].background}")`;
 let elementName = document.createElement("span");
@@ -100,7 +109,7 @@ elementCont.setAttribute("id", `cont-${1}`);
 let elementContText = document.createTextNode(`${VALUES[i].amount}`);
 let elementPrice = document.createElement("span");
 elementPrice.classList.add("prix");
-elementCont.setAttribute("id", `prix-${1}`);
+elementPrice.setAttribute("id", `prix-${1}`);
 let elementPriceText = document.createTextNode(`${VALUES[i].price}`);
 
 elementName.appendChild(elementNameText);
@@ -116,7 +125,7 @@ element.addEventListener("click", () => {
   if (score >= VALUES[i].price) {
     VALUES[i].amount++;
     score -= VALUES[i].price;
-    scoreBox.innerText = Math.round(score);
+    scoreBox.innerText = `${Math.round(score)} Gumballs`;
     elementCont.innerText = `${VALUES[i].amount}`;
     VALUES[i].price *= 1.2;
     VALUES[i].price = Math.round(VALUES[i].price);
@@ -132,15 +141,11 @@ element.addEventListener("click", () => {
   }
 });
 
-
 shop.appendChild(element);
+}
 }
 
 
-let scoreBox = document.getElementById("score");
-let perSecond = document.getElementById("perSec");
-
-let clicvalue = 1;
 let saved = localStorage.getItem("score");
 score = Number(saved);
 let totalScore = Number(saved);
@@ -172,7 +177,7 @@ setInterval(() => {
     if  (score < VALUES[i].price){
    shop.children[i].classList.add("disabled");}
     else {
-      shop.children[i].classList.remove("disabled");
+    shop.children[i].classList.remove("disabled");
    }
    }
 
@@ -183,3 +188,72 @@ function displayScore() {
 }
 
 setInterval(displayScore, 100);
+
+function resetGame(){
+  VALUES = [
+    {
+      name: "San",
+      amount: 0,
+      multiplier: 0.4,
+      price: 15,
+      background: "./assets2/Gumlins.png",
+      description: "San's capacity to dance forever."
+    },
+    {
+      name: "Hongjoong",
+      amount: 0,
+      multiplier: 2,
+      price: 30,
+      background: "./assets2/SuperGumlins.png"
+    },
+    {
+      name:"Jongho",
+      amount: 0,
+      multiplier: 4,
+      price: 60,
+      background: "./assets2/HyperGumlins.png"
+    },
+    {
+      name: "Yeosang",
+      amount: 0,
+      multiplier: 8,
+      price: 120,
+      background: "./assets2/MetaGumlins.png"
+    },
+    {
+      name: "Yunho",
+      amount: 0,
+      multiplier: 16,
+      price: 240,
+      background: "./assets2/TetaGumlins.png"
+    },
+    {
+      name: "Seonghwa",
+      amount: 0,
+      multiplier: 32,
+      price: 480,
+      background: "./assets2/GigaGumlins.png"
+    },
+    {
+      name: "Mingi",
+      amount: 0,
+      multiplier: 64,
+      price: 960,
+      background: "./assets2/SupraGumlins.png"
+    },
+    {
+      name: "Wooyoung",
+      amount: 0,
+      multiplier: 128,
+      price: 1920,
+      background: "./assets2/UltimateGumlins.png"
+    }
+  ];
+  score = 0;
+  totalScore = 0;
+
+saveGame();
+createButtons();
+
+console.log(VALUES);
+}
