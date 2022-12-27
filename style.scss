@@ -32,6 +32,11 @@ body{
     .disabled{
         pointer-events: none;
         opacity:0.4;
+
+        .prix{
+            color:red;
+            font-weight:bold;
+        }
     }
 
     #controllers{
@@ -42,10 +47,10 @@ body{
 
     .controller{
         margin:5px;
-        height:100px;
-        width:100px;
+        height:5rem;
+        width:30rem;
         position:relative;
-        background-color: rgb(255, 210, 127);
+        background-color: rgb(190, 190, 190);
         border:0;
         padding:2em;
 
@@ -53,6 +58,8 @@ body{
             position:absolute;
             bottom:1em;
             right:1em;
+            font-size:1.5rem;
+            font-weight:bold;
         }
 
         .prix{

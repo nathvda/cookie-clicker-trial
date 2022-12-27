@@ -1,6 +1,8 @@
 let score = 0 ; 
+
 setInterval(() => {
   localStorage.setItem("score", score);
+  localStorage.setItem("valeurs", JSON.stringify(VALUES));
   console.log("partie sauvegardée");
 }, 1000);
 
@@ -27,10 +29,27 @@ let VALUES = [
   }
 ];
 
-// let valeurs = localStorage.getItem("valeurs");
-// localStorage.setItem("valeurs", JSON.stringify(VALUES));
-// VALUES = JSON.parse(valeurs);
-// console.log(VALUES);
+
+window.addEventListener("load", loadGame);
+
+function loadGame(){
+  let valeurs = localStorage.getItem("valeurs");
+  let stored = JSON.parse(valeurs);
+  if (typeof VALUES !== "undefined") VALUES = stored;
+  console.log(VALUES);
+
+  con1.innerText = `${VALUES[0].amount}`;
+con2.innerText = `${VALUES[1].amount}`;
+con3.innerText = `${VALUES[2].amount}`;
+con4.innerText = `${VALUES[3].amount}`;
+
+prix1.innerText = VALUES[0].price;
+prix2.innerText = VALUES[1].price;
+prix3.innerText = VALUES[2].price;
+prix4.innerText = VALUES[3].price;
+
+
+}
 
 setInterval(() => {
   document.title = score.toFixed(0) + " cookies";
@@ -233,9 +252,6 @@ setInterval(() => {
   } else { 
     controller4.classList.remove("disabled");
   }
-
-  console.log(Math.round(score));
-  console.log(VALUES);
 }, 1);
 
 function displayScore(){
