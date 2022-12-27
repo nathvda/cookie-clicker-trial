@@ -7,6 +7,7 @@ let perSecond = document.getElementById("perSec");
 let clicvalue = 1;
 let score = 0;
 let prodPerSec = 0;
+let totalScore = 0;
 let VALUES = [
   {
     name: "San",
@@ -70,16 +71,16 @@ let VALUES = [
 let UPGRADES = [
   {
     name: "SAN'S CHAOTIC MOVES",
-    condition : 200,
+    condition : 10,
     target: 0,
     purchased : false,
-    price : 50,
-    effect: 0.2,
+    price : 100,
+    effect: 1.2,
   }, 
   {
     name: "HONGJOONG'S CAPTAIN POWER",
     condition : 700,
-    target: 0,
+    target: 1,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -87,7 +88,7 @@ let UPGRADES = [
   {
     name: "Jongho's Apple breaking Combo",
     condition : 700,
-    target: 0,
+    target: 2,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -95,7 +96,7 @@ let UPGRADES = [
   {
     name: "Yeosang's Hehetmon Cuteness",
     condition : 700,
-    target: 0,
+    target: 3,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -103,7 +104,7 @@ let UPGRADES = [
   {
     name: "Yunho's Unrivaled Twerk",
     condition : 700,
-    target: 0,
+    target: 4,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -111,7 +112,7 @@ let UPGRADES = [
   {
     name: "Seonghwas's Baby Sharking",
     condition : 700,
-    target: 0,
+    target: 5,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -119,7 +120,7 @@ let UPGRADES = [
   {
     name: "Mingi's Unequaled Styling",
     condition : 700,
-    target: 0,
+    target: 6,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -127,7 +128,7 @@ let UPGRADES = [
   {
     name: "Wooyoung's Infinite Yelling",
     condition : 700,
-    target: 0,
+    target: 7,
     purchased : false,
     price : 100,
     effect: 1.2,
@@ -135,17 +136,31 @@ let UPGRADES = [
   
 ]
 
+function createUpgrades(){
 
+  upgrades.innerHTML = "";
+  
 for (let i = 0; i < UPGRADES.length ; i++){
 
   let upButton = document.createElement("button");
   upButton.setAttribute("id", `upgrade-${i}`);
-  upButton.classList.add("upgrade", "locked");
+  upButton.classList.add("upgrade");
+  
   let upButtonText = document.createTextNode(`${UPGRADES[i].name}`);
   upButton.appendChild(upButtonText);
   upgrades.appendChild(upButton);
 
-  upButton.style.display = "block";
+  if (UPGRADES[i].purchased == true){
+    upButton.classList.add("unlocked");
+    upButton.style.display = "block";
+  } else if ( totalScore >= UPGRADES[i].condition ){
+    upButton.classList.add("locked");
+    upButton.style.display = "block";
+  }  else {
+    upButton.classList.add("locked");
+    upButton.style.display = "none";
+
+  }
 
 upButton.addEventListener("click", () => {
 
@@ -162,7 +177,7 @@ upButton.addEventListener("click", () => {
 
   UPGRADES[i].purchased = true;
 
-  VALUES[`${UPGRADES[i].target}`].multiplier += VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
+  VALUES[`${UPGRADES[i].target}`].multiplier = VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
   VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat((VALUES[`${UPGRADES[i].target}`].multiplier));
   console.log(VALUES);
 
@@ -172,16 +187,21 @@ upButton.addEventListener("click", () => {
 })
 
 }
-
-
-
+}
 
 window.addEventListener("load", loadGame);
 
 function saveGame(){
   localStorage.setItem("score", score);
+  localStorage.setItem("totalscore", totalScore);
   localStorage.setItem("valeurs", JSON.stringify(VALUES));
+  localStorage.setItem("upgrades", JSON.stringify(UPGRADES));
   console.log("partie sauvegardée");
+
+let saved = localStorage.getItem("score");
+let totalsaved = localStorage.getItem("totalscore");
+score = Number(saved);
+totalScore = Number(totalsaved);
 }
 
 setInterval(saveGame, 1000);
@@ -189,8 +209,18 @@ setInterval(saveGame, 1000);
 function loadGame() {
   let valeurs = localStorage.getItem("valeurs");
   let stored = JSON.parse(valeurs);
-  if (stored !== null) VALUES = stored;
+  if (stored !== null) {
+    VALUES = stored
+  };
+
+  let amelio = localStorage.getItem("upgrades");
+  let storedAme = JSON.parse(amelio);
+  if (storedAme !== null) {
+    UPGRADES = storedAme
+  };
+
   createButtons();
+  createUpgrades();
 }
 
 
@@ -255,9 +285,7 @@ shop.appendChild(element);
 }
 
 
-let saved = localStorage.getItem("score");
-score = Number(saved);
-let totalScore = Number(saved);
+
 
 scoreBox.innerText = Math.floor(score);
 
@@ -282,7 +310,7 @@ setInterval(() => {
 
   perSecond.innerText = `${prodPerSec} Gumballs per second`;
 
-  for (let i = 0 ; i < VALUES.length ; i++){
+  for (let i = 0 ; i < VALUES.length-1 ; i++){
     if  (score < VALUES[i].price){
    shop.children[i].classList.add("disabled");}
     else {
@@ -290,9 +318,12 @@ setInterval(() => {
    }
    }
 
-   if (totalScore >= UPGRADES[0].condition ){
-    upgradeButton.style.display = "block";
+   for (let i = 0; i < UPGRADES.length ; i++){
+
+   if (totalScore >= UPGRADES[i].condition){
+    document.getElementById(`upgrade-${i}`).style.display = "block";
    }
+  }
 
 }, 1);
 
@@ -366,28 +397,76 @@ function resetGame(){
   UPGRADES = [
     {
       name: "SAN'S CHAOTIC MOVES",
-      condition : 200,
+      condition : 10,
       target: 0,
-      purchased : true,
+      purchased : false,
       price : 100,
       effect: 1.2,
     }, 
     {
       name: "HONGJOONG'S CAPTAIN POWER",
       condition : 700,
-      target: 0,
+      target: 1,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Jongho's Apple breaking Combo",
+      condition : 700,
+      target: 2,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Yeosang's Hehetmon Cuteness",
+      condition : 700,
+      target: 3,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Yunho's Unrivaled Twerk",
+      condition : 700,
+      target: 4,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Seonghwas's Baby Sharking",
+      condition : 700,
+      target: 5,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Mingi's Unequaled Styling",
+      condition : 700,
+      target: 6,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    },
+    {
+      name: "Wooyoung's Infinite Yelling",
+      condition : 700,
+      target: 7,
       purchased : false,
       price : 100,
       effect: 1.2,
     }
+    
   ]
-
+  
   score = 0;
   totalScore = 0;
 
 
 saveGame();
 createButtons();
-
-console.log(VALUES);
+createUpgrades();
 }
