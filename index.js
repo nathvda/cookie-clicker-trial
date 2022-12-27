@@ -67,6 +67,115 @@ let VALUES = [
   }
 ];
 
+let UPGRADES = [
+  {
+    name: "SAN'S CHAOTIC MOVES",
+    condition : 200,
+    target: 0,
+    purchased : false,
+    price : 50,
+    effect: 0.2,
+  }, 
+  {
+    name: "HONGJOONG'S CAPTAIN POWER",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Jongho's Apple breaking Combo",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Yeosang's Hehetmon Cuteness",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Yunho's Unrivaled Twerk",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Seonghwas's Baby Sharking",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Mingi's Unequaled Styling",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  },
+  {
+    name: "Wooyoung's Infinite Yelling",
+    condition : 700,
+    target: 0,
+    purchased : false,
+    price : 100,
+    effect: 1.2,
+  }
+  
+]
+
+
+for (let i = 0; i < UPGRADES.length ; i++){
+
+  let upButton = document.createElement("button");
+  upButton.setAttribute("id", `upgrade-${i}`);
+  upButton.classList.add("upgrade", "locked");
+  let upButtonText = document.createTextNode(`${UPGRADES[i].name}`);
+  upButton.appendChild(upButtonText);
+  upgrades.appendChild(upButton);
+
+  upButton.style.display = "block";
+
+upButton.addEventListener("click", () => {
+
+  if (UPGRADES[i].price >= score){
+
+    console.log("too expensive");
+
+  } else if (UPGRADES[i].purchased === true)
+  {
+    console.log("déja achetée");
+  } else {
+
+  score -= UPGRADES[i].price;
+
+  UPGRADES[i].purchased = true;
+
+  VALUES[`${UPGRADES[i].target}`].multiplier += VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
+  VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat((VALUES[`${UPGRADES[i].target}`].multiplier));
+  console.log(VALUES);
+
+  upButton.classList.remove("locked");
+  upButton.classList.add("unlocked");
+  }
+})
+
+}
+
+
+
+
 window.addEventListener("load", loadGame);
 
 function saveGame(){
@@ -156,7 +265,7 @@ function updateScore() {
   score += clicvalue;
   totalScore += clicvalue;
 
-  scoreBox.innerText = `${Math.round(score)} Gumballs`;
+displayScore();
 }
 
 mainClicker.addEventListener("click", updateScore);
@@ -179,6 +288,10 @@ setInterval(() => {
     else {
     shop.children[i].classList.remove("disabled");
    }
+   }
+
+   if (totalScore >= UPGRADES[0].condition ){
+    upgradeButton.style.display = "block";
    }
 
 }, 1);
@@ -249,8 +362,29 @@ function resetGame(){
       background: "./assets2/UltimateGumlins.png"
     }
   ];
+
+  UPGRADES = [
+    {
+      name: "SAN'S CHAOTIC MOVES",
+      condition : 200,
+      target: 0,
+      purchased : true,
+      price : 100,
+      effect: 1.2,
+    }, 
+    {
+      name: "HONGJOONG'S CAPTAIN POWER",
+      condition : 700,
+      target: 0,
+      purchased : false,
+      price : 100,
+      effect: 1.2,
+    }
+  ]
+
   score = 0;
   totalScore = 0;
+
 
 saveGame();
 createButtons();
