@@ -20,14 +20,40 @@ body{
     font-weight:bold;
 
 
+    #main{
+        display:flex;
+        flex-direction:column;
+        justify-content: flex-start;
+        margin-top:3rem;
+        height:80rem;
+        align-items: center;
+
     #mainClicker{
-        height:4em;
-        width:4rem;
+        background-color:transparent;
+        border:none;
+        height:20rem;
+        width:20rem;
+        margin-top:auto;
+        margin-bottom:5rem;
+        background-image:url(./assets/Gumball.png);
+        background-size:100%;
+        transition: 0.3s;
     }
 
-    #score{
+    #mainClicker:hover{
+        transform: scale(1.2);
+        transition: 0.3s;
+    }
+
+    #mainClicker:active{
+        transform: scale(0.9);
+        transition: 0.3s;
+    }
+
+    #score, #perSec{
         color:white;
     }
+}
 
     .disabled{
         pointer-events: none;
@@ -42,17 +68,37 @@ body{
     #controllers{
         display:flex;
         flex-direction: column;
+        right:1rem;
+        top:1rem;
+
+        
 
 
 
     .controller{
         margin:5px;
         height:5rem;
-        width:30rem;
+        width:25rem;
         position:relative;
         background-color: rgb(190, 190, 190);
         border:0;
         padding:2em;
+
+        .multname{
+            font-size:2rem;
+            position:absolute;
+            top:0;
+            left:7rem;
+            color:white;
+            font-weight:bold;
+            text-shadow: 1px 1px 0 black;
+        }
+
+        .valeur{
+            position:absolute;
+            right:1rem;
+            top:1rem;
+        }
 
         .cont{
             position:absolute;
@@ -64,10 +110,38 @@ body{
 
         .prix{
             position:absolute;
-            top:1em;
-            left:1em;
+            bottom:1em;
+            left:7rem;
+            font-weight:bold;
         }
     }
+
+    #controller-1{
+        background-image:url(./assets/Gumlins.png);
+        background-repeat:no-repeat;
+        background-size:auto 100%;
+    }
+
+    #controller-2{
+        background-image:url(./assets/SuperGumlins.png);
+        background-repeat:no-repeat;
+        background-size:auto 100%;
+    }
+
+    #controller-3{
+        background-image:url(./assets/HyperGumlins.png);
+        background-repeat:no-repeat;
+        background-size:auto 100%;
+    }
+    #controller-4{
+        background-image:url(./assets/MetaGumlins.png);
+        background-repeat:no-repeat;
+        background-size:auto 100%;
+    }
+
+
+
+
 
 }
 

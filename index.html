@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="my take at cookie clicker">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Clicker Trial</title>
+    <title>Gumball clicker</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="index.js"></script>
 </head>
+
 <body>
-    <span id="score"></span>
-    <button id="mainClicker">ClickMe</button>
+   <div id="main"><span id="score"></span>
+    <span id="perSec">0</span>
+    <button id="mainClicker"></button>
+    </div>
 
     <div id="controllers">
-    <button id="controller-1" class="controller">0.4<span class="cont" id="con1"></span><span class="prix" id="prix1"></span></button>
-    <button id="controller-2" class="controller">2<span class="cont" id="con2"></span><span class="prix" id="prix2"></span></button>
-    <button id="controller-3" class="controller">4<span class="cont" id="con3"></span><span class="prix" id="prix3"></span></button>
-    <button id="controller-4" class="controller">8<span class="cont" id="con4"></span><span class="prix" id="prix4"></span></button>
-</div>
+        <button id="controller-1" class="controller"><span class="multname">Gumlins</span><span
+                class="valeur">x 0.4</span><span class="cont" id="con1"></span><span class="prix"
+                id="prix1"></span></button>
+        <button id="controller-2" class="controller"><span class="multname">SuperGumlins</span><span
+                class="valeur">x 2</span><span class="cont" id="con2"></span><span class="prix"
+                id="prix2"></span></button>
+        <button id="controller-3" class="controller"><span class="multname">HyperGumlins</span><span
+                class="valeur">x 4</span><span class="cont" id="con3"></span><span class="prix"
+                id="prix3"></span></button>
+        <button id="controller-4" class="controller"><span class="multname">MetaGumlins</span><span
+                class="valeur">x 8</span><span class="cont" id="con4"></span><span class="prix"
+                id="prix4"></span></button>
+    </div>
 </body>
+
 </html>
