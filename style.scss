@@ -83,6 +83,29 @@ body{
         color:white;
         font-weight:bold;
         text-transform:uppercase;
+        position:relative;
+
+        .description{
+            background-color:black;
+            text-transform:none;
+            font-weight:normal;
+            position:absolute;
+            left:-85%;
+            top:0;
+            padding:1rem;
+            z-index:2;
+            width:15rem;
+            border:0.5em solid teal;
+            pointer-events:none;
+            display:none;
+            text-align:left;
+        }
+
+    }
+
+    .upgrade:hover .description{
+       
+            display:block;
 
     }
 
@@ -169,6 +192,14 @@ body{
 
 }
 
+.bonusButton{
+    background-color:blue;
+    color:white;
+    padding:1em;
+    position:absolute;
+    border:none;
+    border-radius:10px;
+}
 
 }
 
