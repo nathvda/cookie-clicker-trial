@@ -13,7 +13,7 @@ let score = 0;
 let prodPerSec = 0;
 let totalScore = 0;
 let priceFactor = 1.15;
-let CurrentBonus = 1;
+let CurrentBonus = 0;
 
 function setDefault() {
   VALUES = [
@@ -465,7 +465,7 @@ setInterval(() => {
   prodPerSec = 0;
 
   for (let elem of VALUES) {
-    prodPerSec += elem.amount * elem.multiplier * CurrentBonus;
+    prodPerSec += elem.amount * elem.multiplier + (((elem.amount * elem.multiplier)/100) * CurrentBonus);
     score += prodPerSec / 100;
     totalScore += score;
   }
@@ -535,7 +535,7 @@ function spawnBonus() {
     setTimeout(() => {
       bonus.remove();
     }, 5000);
-  }, 60 * 1000);
+   }, (60 * 1000));
 }
 
 function achivementHandler() {}
@@ -544,13 +544,22 @@ spawnBonus();
 
 function bonusTime() {
   let initialBonus = CurrentBonus;
-  alert("Bonus enclenché!");
-  CurrentBonus += 9;
+  let random = Math.floor(Math.random() * VALUES.length);
+  console.log(random);
+
+  if (VALUES[random].amount === 0){
+    bonusTime();
+  } else {
+  console.log(VALUES[random].amount);
+  let bonus = VALUES[random].amount * 100;
+  CurrentBonus += bonus;
+  alert(`Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`)
+  console.log("Bonus:" + CurrentBonus);
 
   setTimeout(() => {
-    CurrentBonus -= 9;
-    alert("Fin du bonus");
-  }, 9000);
+    CurrentBonus -= bonus;
+  }, (30 * 1000));
+}
 }
 
 function numberDisplay(number) {
@@ -573,7 +582,7 @@ function numberDisplay(number) {
   } else if (number < 10 ** 27) {
     return `${(number / 10 ** 24).toLocaleString("en-IN", {maximumFractionDigits:3})} septillions`;
   } else if (number < 10 ** 30) {
-    return `${(number / 10 ** 28).toLocaleString("en-IN", {maximumFractionDigits:3})} octillions`;
+    return `${(number / 10 ** 27).toLocaleString("en-IN", {maximumFractionDigits:3})} octillions`;
   } else if (number < 10 ** 33) {
     return `${(number / 10 ** 30).toLocaleString("en-IN", {maximumFractionDigits:3})} nonillions`;
   } else if (number < 10 ** 36) {
