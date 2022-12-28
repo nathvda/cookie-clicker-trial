@@ -74,6 +74,25 @@ body #upgrades .upgrade {
   color: white;
   font-weight: bold;
   text-transform: uppercase;
+  position: relative;
+}
+body #upgrades .upgrade .description {
+  background-color: black;
+  text-transform: none;
+  font-weight: normal;
+  position: absolute;
+  left: -85%;
+  top: 0;
+  padding: 1rem;
+  z-index: 2;
+  width: 15rem;
+  border: 0.5em solid teal;
+  pointer-events: none;
+  display: none;
+  text-align: left;
+}
+body #upgrades .upgrade:hover .description {
+  display: block;
 }
 body #upgrades .locked {
   background-color: rgb(121, 80, 197);
@@ -143,6 +162,14 @@ body #shop .controller .prix {
   bottom: 0em;
   left: 5rem;
   font-weight: bold;
+}
+body .bonusButton {
+  background-color: blue;
+  color: white;
+  padding: 1em;
+  position: absolute;
+  border: none;
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 1000px) {
