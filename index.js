@@ -20,6 +20,7 @@ function setDefault(){
         amount: 0,
         condition: 0,
         multiplier: 0.1,
+        baseprice : 15,
         price: 15,
         background: "./assets2/Gumlins.png",
         description: "San's capacity to dance forever."
@@ -29,6 +30,7 @@ function setDefault(){
         amount: 0,
         condition: 0,
         multiplier: 1,
+        baseprice : 15,
         price: 100,
         background: "./assets2/SuperGumlins.png"
       },
@@ -37,6 +39,7 @@ function setDefault(){
         amount: 0,
         condition: 1100,
         multiplier: 8,
+        baseprice: 1100,
         price: 1100,
         background: "./assets2/HyperGumlins.png"
       },
@@ -45,6 +48,7 @@ function setDefault(){
         amount: 0,
         condition: 12000,
         multiplier: 47,
+        baseprice: 12000,
         price: 12000,
         background: "./assets2/MetaGumlins.png"
       },
@@ -53,6 +57,7 @@ function setDefault(){
         amount: 0,
         condition: 130000,
         multiplier: 260,
+        baseprice : 130000,
         price: 130000,
         background: "./assets2/TetaGumlins.png"
       },
@@ -61,6 +66,7 @@ function setDefault(){
         amount: 0,
         condition: 1400000,
         multiplier: 1400,
+        baseprice: 1400000,
         price: 1400000,
         background: "./assets2/GigaGumlins.png"
       },
@@ -69,6 +75,7 @@ function setDefault(){
         amount: 0,
         condition: 20000000,
         multiplier: 44000,
+        baseprice: 20000000,
         price: 20000000,
         background: "./assets2/SupraGumlins.png"
       },
@@ -77,6 +84,7 @@ function setDefault(){
         amount: 0,
         condition: 330000000,
         multiplier: 260000,
+        baseprice: 330000000,
         price: 330000000,
         background: "./assets2/UltimateGumlins.png"
       }, 
@@ -85,6 +93,7 @@ function setDefault(){
         amount: 0,
         condition: 5100000000,
         multiplier: 1.6 * (10**6),
+        baseprice: 5100000000,
         price: 5100000000,
         background: "./assets2/Chromer.png"
       }, {
@@ -92,6 +101,7 @@ function setDefault(){
         amount: 0,
         condition: 75000000000,
         multiplier: 10 * (10**6),
+        base: 75000000000,
         price: 75000000000,
         background: "./assets2/HalaSan.png"
       }, 
@@ -100,6 +110,7 @@ function setDefault(){
         amount: 0,
         condition: 1000000000000,
         multiplier: 65 * (10**6),
+        baseprice: 1000000000000,
         price: 1000000000000,
         background: "./assets2/HalaHongjoong.png"
       },
@@ -108,6 +119,7 @@ function setDefault(){
         amount: 0,
         condition: 14000000000000,
         multiplier: 430 * (10**6),
+        baseprice: 14000000000000,
         price: 14000000000000,
         background: "./assets2/HalaJongho.png"
       },
@@ -116,6 +128,7 @@ function setDefault(){
         amount: 0,
         condition: 170000000000000,
         multiplier: 2.9 * (10**9),
+        baseprice: 170000000000000,
         price: 170000000000000,
         background: "./assets2/HalaYeosang.png"
       },
@@ -124,6 +137,7 @@ function setDefault(){
         amount: 0,
         condition: 2.1 * (10**15),
         multiplier: 21 * (10**9),
+        baseprice: 170000000000000,
         price: 2.1 * (10**15),
         background: "./assets2/HalaYunho.png"
       },
@@ -132,6 +146,7 @@ function setDefault(){
         amount: 0,
         condition: 2.6 * (10**15),
         multiplier: 150 * (10**9),
+        baseprice: 2.6 * (10**15),
         price: 2.6 * (10**15),
         background: "./assets2/HalaSeonghwa.png"
       },
@@ -140,6 +155,7 @@ function setDefault(){
         amount: 0,
         condition: 310 * (10**15),
         multiplier: 1.1 * (10**12),
+        baseprice: 310 * (10**15),
         price: 310 * (10**15),
         background: "./assets2/HalaMingi.png"
       },
@@ -148,6 +164,7 @@ function setDefault(){
         amount: 0,
         condition: 71 * (10**18),
         multiplier: 8.3 * (10**12),
+        baseprice: 71 * (10**18),
         price: 71 * (10**18),
         background: "./assets2/HalaWooyoung.png"
       }
@@ -229,7 +246,7 @@ function setDefault(){
       {
         name: "Hehet!",
         condition : 30,
-        target: 0,
+        target: 4,
         purchased : false,
         price : 1000,
         effect: 1.6,
@@ -371,8 +388,8 @@ element.addEventListener("click", () => {
     score -= VALUES[i].price;
     scoreBox.innerText = `${Math.round(score)} pirate coins`;
     elementCont.innerText = `${VALUES[i].amount}`;
-    VALUES[i].price *= Math.pow(priceFactor, VALUES[i].amount);
-    VALUES[i].price = Math.round(VALUES[i].price);
+    VALUES[i].price = VALUES[i].baseprice * (priceFactor ** VALUES[i].amount);
+    VALUES[i].price = Math.ceil(VALUES[i].price);
     elementPrice.innerText = `${VALUES[i].price}`;
     localStorage.setItem("valeurs", JSON.stringify(VALUES));
     if (score < VALUES[i].price) {
