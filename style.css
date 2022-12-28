@@ -52,6 +52,16 @@ body #main #score, body #main #perSec {
   font-weight: bolder;
   text-shadow: 0.1rem 0.1rem 0 rgb(175, 105, 140);
 }
+body #reset {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  background-color: #8d6a94;
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+}
 body #upgrades {
   display: grid;
   max-width: 50vw;
@@ -81,6 +91,9 @@ body .disabled {
 body .disabled .prix {
   color: rgb(107, 22, 146);
   font-weight: bold;
+}
+body .hidden {
+  display: none;
 }
 body #shop {
   display: flex;
@@ -140,5 +153,9 @@ body #shop .controller .prix {
   }
   body #main {
     height: auto;
+  }
+  body #shop {
+    height: 80vh;
+    overflow-y: auto;
   }
 }/*# sourceMappingURL=style.css.map */

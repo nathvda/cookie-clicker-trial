@@ -60,6 +60,17 @@ body{
     }
 }
 
+#reset{
+    position:absolute;
+    top:2rem;
+    left:2rem;
+    background-color:#8d6a94;
+    border:none;
+    padding:1rem;
+    border-radius:1rem;
+    color:white;
+}
+
 #upgrades{
     display:grid;
     max-width:50vw;
@@ -97,14 +108,16 @@ body{
         }
     }
 
+    .hidden{
+        display:none;
+    }
+
     #shop{
         display:flex;
         flex-direction: column;
         right:1rem;
         top:1rem;
         bottom:1rem;
-        
-
 
 
     .controller{
@@ -167,6 +180,11 @@ body{
 
         #main{
             height:auto;
+        }
+
+        #shop{
+            height:80vh;
+            overflow-y:auto;
         }
     }
 }

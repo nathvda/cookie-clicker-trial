@@ -1,3 +1,6 @@
+let VALUES;
+let UPGRADES;
+
 let mainClicker = document.getElementById("mainClicker");
 let upgrades = document.getElementById("upgrades");
 let shop = document.getElementById("shop");
@@ -8,158 +11,259 @@ let clicvalue = 1;
 let score = 0;
 let prodPerSec = 0;
 let totalScore = 0;
-let VALUES = [
-  {
-    name: "San",
-    amount: 0,
-    multiplier: 0.4,
-    price: 15,
-    background: "./assets2/Gumlins.png",
-    description: "San's capacity to dance forever."
-  },
-  {
-    name: "Hongjoong",
-    amount: 0,
-    multiplier: 2,
-    price: 30,
-    background: "./assets2/SuperGumlins.png"
-  },
-  {
-    name:"Jongho",
-    amount: 0,
-    multiplier: 4,
-    price: 60,
-    background: "./assets2/HyperGumlins.png"
-  },
-  {
-    name: "Yeosang",
-    amount: 0,
-    multiplier: 8,
-    price: 120,
-    background: "./assets2/MetaGumlins.png"
-  },
-  {
-    name: "Yunho",
-    amount: 0,
-    multiplier: 16,
-    price: 240,
-    background: "./assets2/TetaGumlins.png"
-  },
-  {
-    name: "Seonghwa",
-    amount: 0,
-    multiplier: 32,
-    price: 480,
-    background: "./assets2/GigaGumlins.png"
-  },
-  {
-    name: "Mingi",
-    amount: 0,
-    multiplier: 64,
-    price: 960,
-    background: "./assets2/SupraGumlins.png"
-  },
-  {
-    name: "Wooyoung",
-    amount: 0,
-    multiplier: 128,
-    price: 1920,
-    background: "./assets2/UltimateGumlins.png"
-  }
-];
+let priceFactor = 1.15;
 
-let UPGRADES = [
-  {
-    name: "SAN'S CHAOTIC MOVES",
-    condition : 10,
-    target: 0,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  }, 
-  {
-    name: "HONGJOONG'S CAPTAIN POWER",
-    condition : 700,
-    target: 1,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Jongho's Apple breaking Combo",
-    condition : 700,
-    target: 2,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Yeosang's Hehetmon Cuteness",
-    condition : 700,
-    target: 3,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Yunho's Unrivaled Twerk",
-    condition : 700,
-    target: 4,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Seonghwas's Baby Sharking",
-    condition : 700,
-    target: 5,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Mingi's Unequaled Styling",
-    condition : 700,
-    target: 6,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  },
-  {
-    name: "Wooyoung's Infinite Yelling",
-    condition : 700,
-    target: 7,
-    purchased : false,
-    price : 100,
-    effect: 1.2,
-  }
+function setDefault(){
+  VALUES = [
+      {
+        name: "San",
+        amount: 0,
+        condition: 0,
+        multiplier: 0.1,
+        price: 15,
+        background: "./assets2/Gumlins.png",
+        description: "San's capacity to dance forever."
+      },
+      {
+        name: "Hongjoong",
+        amount: 0,
+        condition: 0,
+        multiplier: 1,
+        price: 100,
+        background: "./assets2/SuperGumlins.png"
+      },
+      {
+        name:"Jongho",
+        amount: 0,
+        condition: 300,
+        multiplier: 8,
+        price: 1000,
+        background: "./assets2/HyperGumlins.png"
+      },
+      {
+        name: "Yeosang",
+        amount: 0,
+        condition: 500,
+        multiplier: 47,
+        price: 12000,
+        background: "./assets2/MetaGumlins.png"
+      },
+      {
+        name: "Yunho",
+        amount: 0,
+        condition: 800,
+        multiplier: 260,
+        price: 130000,
+        background: "./assets2/TetaGumlins.png"
+      },
+      {
+        name: "Seonghwa",
+        amount: 0,
+        condition: 1200,
+        multiplier: 1400,
+        price: 1400000,
+        background: "./assets2/GigaGumlins.png"
+      },
+      {
+        name: "Mingi",
+        amount: 0,
+        condition: 1500,
+        multiplier: 44000,
+        price: 20000000,
+        background: "./assets2/SupraGumlins.png"
+      },
+      {
+        name: "Wooyoung",
+        amount: 0,
+        condition: 1700,
+        multiplier: 260000,
+        price: 330000000,
+        background: "./assets2/UltimateGumlins.png"
+      }, 
+      {
+        name: "Chromer",
+        amount: 0,
+        condition: 2000,
+        multiplier: 1.6 * (10**6),
+        price: 5100000000,
+        background: "./assets2/Chromer.png"
+      }, {
+        name: "Hala San",
+        amount: 0,
+        condition: 7500,
+        multiplier: 10 * (10**6),
+        price: 75000000000,
+        background: "./assets2/HalaSan.png"
+      }, 
+      {
+        name: "Hala Hongjoong",
+        amount: 0,
+        condition: 15000,
+        multiplier: 65 * (10**6),
+        price: 1000000000000,
+        background: "./assets2/HalaHongjoong.png"
+      },
+      {
+        name: "Hala Jongho",
+        amount: 0,
+        condition: 18000,
+        multiplier: 430 * (10**6),
+        price: 14000000000000,
+        background: "./assets2/HalaJongho.png"
+      },
+      {
+        name: "Hala Yeosang",
+        amount: 0,
+        condition: 30000,
+        multiplier: 2.9 * (10**9),
+        price: 170000000000000,
+        background: "./assets2/HalaYeosang.png"
+      },
+      {
+        name: "Hala Yunho",
+        amount: 0,
+        condition: 60000,
+        multiplier: 21 * (10**9),
+        price: 2.1 * (10**15),
+        background: "./assets2/HalaYunho.png"
+      },
+      {
+        name: "Hala Seonghwa",
+        amount: 0,
+        condition: 120000,
+        multiplier: 150 * (10**9),
+        price: 2.6 * (10**15),
+        background: "./assets2/HalaSeonghwa.png"
+      },
+      {
+        name: "Hala Mingi",
+        amount: 0,
+        condition: 240000,
+        multiplier: 1.1 * (10**12),
+        price: 310 * (10**15),
+        background: "./assets2/HalaMingi.png"
+      },
+      {
+        name: "Hala Wooyoung",
+        amount: 0,
+        condition: 480000,
+        multiplier: 8.3 * (10**12),
+        price: 71 * (10*18),
+        background: "./assets2/HalaWooyoung.png"
+      }
+    ];
   
-]
+    UPGRADES = [
+      {
+        name: "SAN'S CHAOTIC MOVES",
+        condition : 10,
+        target: 0,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      }, 
+      {
+        name: "HONGJOONG'S CAPTAIN POWER",
+        condition : 10,
+        target: 1,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Jongho's Apple breaking Combo",
+        condition : 10,
+        target: 2,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Yeosang's Hehetmon Cuteness",
+        condition : 10,
+        target: 3,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Yunho's Unrivaled Twerk",
+        condition : 10,
+        target: 4,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Seonghwas's Baby Sharking",
+        condition : 10,
+        target: 5,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Mingi's Unequaled Styling",
+        condition : 10,
+        target: 6,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Wooyoung's Infinite Yelling",
+        condition : 10,
+        target: 7,
+        purchased : false,
+        price : 100,
+        effect: 1.2,
+      },
+      {
+        name: "Amicus ad Aras",
+        condition : 30,
+        target: 0,
+        purchased : false,
+        price : 1000,
+        effect: 1.6,
+      }, 
+      {
+        name: "Hehet!",
+        condition : 30,
+        target: 0,
+        purchased : false,
+        price : 1000,
+        effect: 1.6,
+      }
+    ]
+}
+  
+
+VALUES = setDefault();
+UPGRADES = setDefault();
 
 function createUpgrades(){
 
   upgrades.innerHTML = "";
-  
+
 for (let i = 0; i < UPGRADES.length ; i++){
 
   let upButton = document.createElement("button");
   upButton.setAttribute("id", `upgrade-${i}`);
   upButton.classList.add("upgrade");
   
-  let upButtonText = document.createTextNode(`${UPGRADES[i].name}`);
+  let upButtonText = document.createTextNode(`UNLOCK ${UPGRADES[i].name} FOR ${UPGRADES[i].price}`);
   upButton.appendChild(upButtonText);
   upgrades.appendChild(upButton);
 
   if (UPGRADES[i].purchased == true){
     upButton.classList.add("unlocked");
     upButton.style.display = "block";
-  } else if ( totalScore >= UPGRADES[i].condition ){
+  } else if ( UPGRADES[i].condition == true ){
     upButton.classList.add("locked");
     upButton.style.display = "block";
   }  else {
     upButton.classList.add("locked");
     upButton.style.display = "none";
-
   }
 
 upButton.addEventListener("click", () => {
@@ -179,10 +283,11 @@ upButton.addEventListener("click", () => {
 
   VALUES[`${UPGRADES[i].target}`].multiplier = VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
   VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat((VALUES[`${UPGRADES[i].target}`].multiplier));
-  console.log(VALUES);
 
   upButton.classList.remove("locked");
   upButton.classList.add("unlocked");
+
+createButtons();
   }
 })
 
@@ -197,11 +302,6 @@ function saveGame(){
   localStorage.setItem("valeurs", JSON.stringify(VALUES));
   localStorage.setItem("upgrades", JSON.stringify(UPGRADES));
   console.log("partie sauvegardée");
-
-let saved = localStorage.getItem("score");
-let totalsaved = localStorage.getItem("totalscore");
-score = Number(saved);
-totalScore = Number(totalsaved);
 }
 
 setInterval(saveGame, 1000);
@@ -218,6 +318,11 @@ function loadGame() {
   if (storedAme !== null) {
     UPGRADES = storedAme
   };
+
+  let saved = localStorage.getItem("score");
+let totalsaved = localStorage.getItem("totalscore");
+score = Number(saved);
+totalScore = Number(totalsaved);
 
   createButtons();
   createUpgrades();
@@ -266,7 +371,7 @@ element.addEventListener("click", () => {
     score -= VALUES[i].price;
     scoreBox.innerText = `${Math.round(score)} Gumballs`;
     elementCont.innerText = `${VALUES[i].amount}`;
-    VALUES[i].price *= 1.2;
+    VALUES[i].price *= Math.pow(priceFactor, VALUES[i].amount);
     VALUES[i].price = Math.round(VALUES[i].price);
     elementPrice.innerText = `${VALUES[i].price}`;
     localStorage.setItem("valeurs", JSON.stringify(VALUES));
@@ -280,12 +385,9 @@ element.addEventListener("click", () => {
   }
 });
 
-shop.appendChild(element);
+ shop.appendChild(element)
+  }
 }
-}
-
-
-
 
 scoreBox.innerText = Math.floor(score);
 
@@ -310,7 +412,7 @@ setInterval(() => {
 
   perSecond.innerText = `${prodPerSec} Gumballs per second`;
 
-  for (let i = 0 ; i < VALUES.length-1 ; i++){
+  for (let i = 0 ; i < VALUES.length ; i++){
     if  (score < VALUES[i].price){
    shop.children[i].classList.add("disabled");}
     else {
@@ -318,12 +420,24 @@ setInterval(() => {
    }
    }
 
-   for (let i = 0; i < UPGRADES.length ; i++){
+   for (let i = 0 ; i < VALUES.length ; i++){
+    if (totalScore >= VALUES[i].condition){
+   shop.children[i].classList.remove("hidden");
 
-   if (totalScore >= UPGRADES[i].condition){
-    document.getElementById(`upgrade-${i}`).style.display = "block";
+  }
+    else {
+     
+   }
+   }
+
+   
+
+   for (let i = 0; i < UPGRADES.length ; i++){
+   if (VALUES[UPGRADES[i].target].amount >=  UPGRADES[i].condition){
+    document.querySelectorAll(".upgrade")[i].style.display = "block";
    }
   }
+
 
 }, 1);
 
@@ -334,139 +448,17 @@ function displayScore() {
 setInterval(displayScore, 100);
 
 function resetGame(){
-  VALUES = [
-    {
-      name: "San",
-      amount: 0,
-      multiplier: 0.4,
-      price: 15,
-      background: "./assets2/Gumlins.png",
-      description: "San's capacity to dance forever."
-    },
-    {
-      name: "Hongjoong",
-      amount: 0,
-      multiplier: 2,
-      price: 30,
-      background: "./assets2/SuperGumlins.png"
-    },
-    {
-      name:"Jongho",
-      amount: 0,
-      multiplier: 4,
-      price: 60,
-      background: "./assets2/HyperGumlins.png"
-    },
-    {
-      name: "Yeosang",
-      amount: 0,
-      multiplier: 8,
-      price: 120,
-      background: "./assets2/MetaGumlins.png"
-    },
-    {
-      name: "Yunho",
-      amount: 0,
-      multiplier: 16,
-      price: 240,
-      background: "./assets2/TetaGumlins.png"
-    },
-    {
-      name: "Seonghwa",
-      amount: 0,
-      multiplier: 32,
-      price: 480,
-      background: "./assets2/GigaGumlins.png"
-    },
-    {
-      name: "Mingi",
-      amount: 0,
-      multiplier: 64,
-      price: 960,
-      background: "./assets2/SupraGumlins.png"
-    },
-    {
-      name: "Wooyoung",
-      amount: 0,
-      multiplier: 128,
-      price: 1920,
-      background: "./assets2/UltimateGumlins.png"
-    }
-  ];
 
-  UPGRADES = [
-    {
-      name: "SAN'S CHAOTIC MOVES",
-      condition : 10,
-      target: 0,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    }, 
-    {
-      name: "HONGJOONG'S CAPTAIN POWER",
-      condition : 700,
-      target: 1,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Jongho's Apple breaking Combo",
-      condition : 700,
-      target: 2,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Yeosang's Hehetmon Cuteness",
-      condition : 700,
-      target: 3,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Yunho's Unrivaled Twerk",
-      condition : 700,
-      target: 4,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Seonghwas's Baby Sharking",
-      condition : 700,
-      target: 5,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Mingi's Unequaled Styling",
-      condition : 700,
-      target: 6,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    },
-    {
-      name: "Wooyoung's Infinite Yelling",
-      condition : 700,
-      target: 7,
-      purchased : false,
-      price : 100,
-      effect: 1.2,
-    }
-    
-  ]
-  
+  let reset = confirm("Are you sure you want to reset?");
+  if (reset == true){
   score = 0;
   totalScore = 0;
 
-
+setDefault();
 saveGame();
 createButtons();
-createUpgrades();
+createUpgrades();}
+else {
+  console.log("Reset annulé");
+}
 }
