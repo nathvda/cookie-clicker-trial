@@ -14,6 +14,7 @@ let prodPerSec = 0;
 let totalScore = 0;
 let priceFactor = 1.15;
 let CurrentBonus = 0;
+let FrequencyBonus = 1;
 
 function setDefault() {
   VALUES = [
@@ -277,16 +278,32 @@ function setDefault() {
       effect: 2,
     },
   ];
-}
+
 
 ACHIEVEMENTS = [
   {
     nom: "Welcome on board",
-    description: "You found your first pirate coin",
-    type: "score",
+    description: "Congrats ! You found your first pirate coin",
+    type: "totalscore",
     condition: 1,
+    announced : false
   },
+  {
+    nom: "Welcome on board",
+    description: "Congrats You found 1000 coins!",
+    type: "totalscore",
+    condition: 1000,
+    announced : false
+  },
+  {
+    nom: "Welcome on board",
+    description: "Congrats You found 100,000 coins!",
+    type: "totalscore",
+    condition: 100000,
+    announced : false
+  }
 ];
+}
 
 VALUES = setDefault();
 UPGRADES = setDefault();
@@ -362,6 +379,7 @@ function saveGame() {
   localStorage.setItem("totalscore", totalScore);
   localStorage.setItem("valeurs", JSON.stringify(VALUES));
   localStorage.setItem("upgrades", JSON.stringify(UPGRADES));
+  localStorage.setItem("achievements", JSON.stringify(ACHIEVEMENTS));
   console.log("partie sauvegardée");
 }
 
@@ -378,6 +396,12 @@ function loadGame() {
   let storedAme = JSON.parse(amelio);
   if (storedAme !== null) {
     UPGRADES = storedAme;
+  }
+
+  let achiv = localStorage.getItem("achievements");
+  let storedachiv = JSON.parse(achiv);
+  if (storedachiv !== null) {
+    ACHIEVEMENTS = storedachiv;
   }
 
   let saved = localStorage.getItem("score");
@@ -466,8 +490,8 @@ setInterval(() => {
 
   for (let elem of VALUES) {
     prodPerSec += elem.amount * elem.multiplier + (((elem.amount * elem.multiplier)/100) * CurrentBonus);
-    score += prodPerSec / 100;
-    totalScore += score;
+    score += prodPerSec / 1000;
+    totalScore += prodPerSec / 1000;
   }
 
   let produ = numberDisplay(prodPerSec);
@@ -493,6 +517,9 @@ setInterval(() => {
       document.querySelectorAll(".upgrade")[i].style.display = "block";
     }
   }
+
+  achievementHandler();
+
 }, 1);
 
 function displayScore() {
@@ -534,16 +561,27 @@ function spawnBonus() {
 
     setTimeout(() => {
       bonus.remove();
-    }, 5000);
-   }, (60 * 1000));
+    }, (8000 * FrequencyBonus));
+   }, ((60 * 1000)/FrequencyBonus));
 }
 
-function achivementHandler() {}
+function achievementHandler() {
+  for (let i = 0; i < ACHIEVEMENTS.length; i++ ){
+  if(ACHIEVEMENTS[i].type == "totalscore"){
+    if ((totalScore >= ACHIEVEMENTS[i].condition) && (ACHIEVEMENTS[i].announced === false)){
+     alert(ACHIEVEMENTS[i].description);
+     ACHIEVEMENTS[i].announced = true;
+    } else { 
+    //
+    }
+  }
+  }
+};
 
+achievementHandler();
 spawnBonus();
 
 function bonusTime() {
-  let initialBonus = CurrentBonus;
   let random = Math.floor(Math.random() * VALUES.length);
   console.log(random);
 
@@ -558,13 +596,13 @@ function bonusTime() {
 
   setTimeout(() => {
     CurrentBonus -= bonus;
-  }, (30 * 1000));
+  }, ((30 * 1000)*FrequencyBonus));
 }
 }
 
 function numberDisplay(number) {
   if (number < 999) {
-    return `${number.toLocaleString("en-IN", { maximumFractionDigits: 3})}`;
+    return `${number.toLocaleString("en-IN", { maximumFractionDigits: 1})}`;
   } else if (number < 10 ** 6) {
     return `${(number/1000).toLocaleString("en-IN", {maximumFractionDigits:3})} thousands`;
   } else if (number < 10 ** 9) {
