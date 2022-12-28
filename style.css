@@ -62,6 +62,46 @@ body #reset {
   border-radius: 1rem;
   color: white;
 }
+body #seeachievements {
+  position: absolute;
+  top: 2rem;
+  left: 7rem;
+  background-color: #8d6a94;
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+}
+body #achievements {
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  right: 1rem;
+  left: 50rem;
+  background-color: black;
+  z-index: 99;
+  border: 1rem solid blue;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 5rem);
+  grid-template-rows: repeat(auto-fill, 5rem);
+  padding: 1rem;
+  gap: 1rem;
+}
+body #achievements .achievementItem {
+  border: 0.5rem solid teal;
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem;
+}
+body #achievements .achievementItem .achievementimg {
+  width: 2rem;
+  height: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body #achievements.invisible {
+  display: none;
+}
 body #upgrades {
   display: grid;
   max-width: 50vw;

@@ -5,6 +5,7 @@ let ACHIEVEMENTS;
 let mainClicker = document.getElementById("mainClicker");
 let upgrades = document.getElementById("upgrades");
 let shop = document.getElementById("shop");
+let achivBox = document.getElementById("achievements");
 let scoreBox = document.getElementById("score");
 let perSecond = document.getElementById("perSec");
 
@@ -286,6 +287,7 @@ ACHIEVEMENTS = [
     description: "Congrats ! You found your first pirate coin",
     type: "totalscore",
     condition: 1,
+    url : "./assets2/Gumlins.png",
     announced : false
   },
   {
@@ -293,6 +295,7 @@ ACHIEVEMENTS = [
     description: "Congrats You found 1000 coins!",
     type: "totalscore",
     condition: 1000,
+    url : "./assets2/SuperGumlins.png",
     announced : false
   },
   {
@@ -300,6 +303,23 @@ ACHIEVEMENTS = [
     description: "Congrats You found 100,000 coins!",
     type: "totalscore",
     condition: 100000,
+    url : "./assets2/HyperGumlins.png",
+    announced : false
+  },
+  {
+    nom: "Welcome on board",
+    description: "Congrats You found 100,000 coins!",
+    type: "totalscore",
+    condition: 100000000,
+    url : "./assets2/HyperGumlins.png",
+    announced : false
+  },
+  {
+    nom: "Welcome on board",
+    description: "Congrats You found 100,000 coins!",
+    type: "totalscore",
+    condition: 100000000000,
+    url : "./assets2/HyperGumlins.png",
     announced : false
   }
 ];
@@ -410,6 +430,7 @@ function loadGame() {
   totalScore = Number(totalsaved);
 
   displayScore();
+  displayAchievements();
   createButtons();
   createUpgrades();
 }
@@ -458,7 +479,7 @@ function createButtons() {
         score -= VALUES[i].price;
         displayScore();
         elementCont.innerText = `${VALUES[i].amount}`;
-        VALUES[i].price = VALUES[i].baseprice * priceFactor ** VALUES[i].amount;
+        VALUES[i].price = VALUES[i].baseprice * (priceFactor ** VALUES[i].amount);
         VALUES[i].price = Math.ceil(VALUES[i].price);
         let woup = numberDisplay(VALUES[i].price);
         elementPrice.innerText = `${woup}`;
@@ -519,6 +540,7 @@ setInterval(() => {
   }
 
   achievementHandler();
+  displayAchievements();
 
 }, 1);
 
@@ -537,12 +559,38 @@ function resetGame() {
 
     setDefault();
     saveGame();
+    displayAchievements();
     createButtons();
     createUpgrades();
   } else {
     console.log("Reset annulé");
   }
 }
+
+function displayAchievements(){
+
+  achivBox.innerHTML = "";
+
+  for (elem of ACHIEVEMENTS){
+  let duh = document.createElement("div");
+  duh.classList.add("achievementItem");
+  let achivImg = document.createElement("img");
+  achivImg.classList.add("achievementimg");
+
+  if (elem.announced === true){
+  achivImg.src= elem.url;
+  } else {
+  achivImg.src= "./assets/Gumlins.png";
+  }
+
+
+  duh.appendChild(achivImg);
+  achivBox.appendChild(duh);
+  
+}
+}
+
+displayAchievements();
 
 function spawnBonus() {
   setInterval(() => {
@@ -633,3 +681,9 @@ function numberDisplay(number) {
     return number.toLocaleString("de-DE", { maximumFractionDigits: 3})
   }
 }
+
+let achievButton = document.getElementById("seeachievements");
+
+achievButton.addEventListener("click", () => {
+  document.getElementById("achievements").classList.toggle("invisible");
+})
