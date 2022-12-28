@@ -35,15 +35,15 @@ function setDefault(){
       {
         name:"Jongho",
         amount: 0,
-        condition: 300,
+        condition: 1100,
         multiplier: 8,
-        price: 1000,
+        price: 1100,
         background: "./assets2/HyperGumlins.png"
       },
       {
         name: "Yeosang",
         amount: 0,
-        condition: 500,
+        condition: 12000,
         multiplier: 47,
         price: 12000,
         background: "./assets2/MetaGumlins.png"
@@ -51,7 +51,7 @@ function setDefault(){
       {
         name: "Yunho",
         amount: 0,
-        condition: 800,
+        condition: 130000,
         multiplier: 260,
         price: 130000,
         background: "./assets2/TetaGumlins.png"
@@ -59,7 +59,7 @@ function setDefault(){
       {
         name: "Seonghwa",
         amount: 0,
-        condition: 1200,
+        condition: 1400000,
         multiplier: 1400,
         price: 1400000,
         background: "./assets2/GigaGumlins.png"
@@ -67,7 +67,7 @@ function setDefault(){
       {
         name: "Mingi",
         amount: 0,
-        condition: 1500,
+        condition: 20000000,
         multiplier: 44000,
         price: 20000000,
         background: "./assets2/SupraGumlins.png"
@@ -75,7 +75,7 @@ function setDefault(){
       {
         name: "Wooyoung",
         amount: 0,
-        condition: 1700,
+        condition: 330000000,
         multiplier: 260000,
         price: 330000000,
         background: "./assets2/UltimateGumlins.png"
@@ -83,14 +83,14 @@ function setDefault(){
       {
         name: "Chromer",
         amount: 0,
-        condition: 2000,
+        condition: 5100000000,
         multiplier: 1.6 * (10**6),
         price: 5100000000,
         background: "./assets2/Chromer.png"
       }, {
         name: "Hala San",
         amount: 0,
-        condition: 7500,
+        condition: 75000000000,
         multiplier: 10 * (10**6),
         price: 75000000000,
         background: "./assets2/HalaSan.png"
@@ -98,7 +98,7 @@ function setDefault(){
       {
         name: "Hala Hongjoong",
         amount: 0,
-        condition: 15000,
+        condition: 1000000000000,
         multiplier: 65 * (10**6),
         price: 1000000000000,
         background: "./assets2/HalaHongjoong.png"
@@ -106,7 +106,7 @@ function setDefault(){
       {
         name: "Hala Jongho",
         amount: 0,
-        condition: 18000,
+        condition: 14000000000000,
         multiplier: 430 * (10**6),
         price: 14000000000000,
         background: "./assets2/HalaJongho.png"
@@ -114,7 +114,7 @@ function setDefault(){
       {
         name: "Hala Yeosang",
         amount: 0,
-        condition: 30000,
+        condition: 170000000000000,
         multiplier: 2.9 * (10**9),
         price: 170000000000000,
         background: "./assets2/HalaYeosang.png"
@@ -122,7 +122,7 @@ function setDefault(){
       {
         name: "Hala Yunho",
         amount: 0,
-        condition: 60000,
+        condition: 2.1 * (10**15),
         multiplier: 21 * (10**9),
         price: 2.1 * (10**15),
         background: "./assets2/HalaYunho.png"
@@ -130,7 +130,7 @@ function setDefault(){
       {
         name: "Hala Seonghwa",
         amount: 0,
-        condition: 120000,
+        condition: 2.6 * (10**15),
         multiplier: 150 * (10**9),
         price: 2.6 * (10**15),
         background: "./assets2/HalaSeonghwa.png"
@@ -138,7 +138,7 @@ function setDefault(){
       {
         name: "Hala Mingi",
         amount: 0,
-        condition: 240000,
+        condition: 310 * (10**15),
         multiplier: 1.1 * (10**12),
         price: 310 * (10**15),
         background: "./assets2/HalaMingi.png"
@@ -146,9 +146,9 @@ function setDefault(){
       {
         name: "Hala Wooyoung",
         amount: 0,
-        condition: 480000,
+        condition: 71 * (10**18),
         multiplier: 8.3 * (10**12),
-        price: 71 * (10*18),
+        price: 71 * (10**18),
         background: "./assets2/HalaWooyoung.png"
       }
     ];
@@ -461,4 +461,10 @@ createUpgrades();}
 else {
   console.log("Reset annulé");
 }
+}
+
+function spawnBonus(){
+
+  
+
 }
