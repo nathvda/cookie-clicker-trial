@@ -330,7 +330,7 @@ totalScore = Number(totalsaved);
 
 
 setInterval(() => {
-  document.title = score.toFixed(0) + " gumballs - Gumballs Dealer";
+  document.title = score.toFixed(0) + " pirate coins - Pirate Coins Dealer";
 }, 2000);
 
 function createButtons(){
@@ -369,7 +369,7 @@ element.addEventListener("click", () => {
   if (score >= VALUES[i].price) {
     VALUES[i].amount++;
     score -= VALUES[i].price;
-    scoreBox.innerText = `${Math.round(score)} Gumballs`;
+    scoreBox.innerText = `${Math.round(score)} pirate coins`;
     elementCont.innerText = `${VALUES[i].amount}`;
     VALUES[i].price *= Math.pow(priceFactor, VALUES[i].amount);
     VALUES[i].price = Math.round(VALUES[i].price);
@@ -410,7 +410,7 @@ setInterval(() => {
     prodPerSec += elem.amount * elem.multiplier;
   } 
 
-  perSecond.innerText = `${prodPerSec} Gumballs per second`;
+  perSecond.innerText = `${prodPerSec} pirate coins per second`;
 
   for (let i = 0 ; i < VALUES.length ; i++){
     if  (score < VALUES[i].price){
@@ -442,7 +442,7 @@ setInterval(() => {
 }, 1);
 
 function displayScore() {
-  scoreBox.innerText = `${Math.round(score)} Gumballs`;
+  scoreBox.innerText = `${Math.round(score)} pirate coins`;
 }
 
 setInterval(displayScore, 100);
