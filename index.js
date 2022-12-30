@@ -18,6 +18,7 @@ let CurrentBonus = 0;
 let FrequencyBonus = 1;
 
 function setDefault() {
+
   VALUES = [
     {
       name: "San",
@@ -280,8 +281,7 @@ function setDefault() {
     },
   ];
 
-
-ACHIEVEMENTS = [
+  ACHIEVEMENTS = [
   {
     nom: "Welcome on board",
     description: "Congrats ! You found your first pirate coin",
@@ -323,6 +323,7 @@ ACHIEVEMENTS = [
     announced : false
   }
 ];
+
 }
 
 VALUES = setDefault();
