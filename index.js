@@ -1,6 +1,7 @@
 let VALUES;
 let UPGRADES;
 let ACHIEVEMENTS;
+let SETTINGS; 
 
 let mainClicker = document.getElementById("mainClicker");
 let upgrades = document.getElementById("upgrades");
@@ -16,6 +17,8 @@ let totalScore = 0;
 let priceFactor = 1.15;
 let CurrentBonus = 0;
 let FrequencyBonus = 1;
+
+
 
 function setDefault() {
 
@@ -143,7 +146,7 @@ function setDefault() {
       amount: 0,
       condition: 2.1 * 10 ** 15,
       multiplier: 21 * 10 ** 9,
-      baseprice: 170000000000000,
+      baseprice: 2.1 * 10 ** 15,
       price: 2.1 * 10 ** 15,
       background: "./assets2/HalaYunho.png",
     },
@@ -196,25 +199,29 @@ function setDefault() {
       condition: 10,
       target: 1,
       purchased: false,
-      price: 100,
+      price: 200,
       effect: 1.2,
     },
     {
       name: "Jongho's Apple breaking Combo",
       type: "building",
+      description:
+      "Jongho's ability to break apples helps him to find coins faster by two percents",
       condition: 10,
       target: 2,
       purchased: false,
-      price: 100,
+      price: 300,
       effect: 1.2,
     },
     {
       name: "Yeosang's Hehetmon Cuteness",
       type: "building",
+      description:
+      "Yeosang's cute creature helps you find coins faster by two percents",
       condition: 10,
       target: 3,
       purchased: false,
-      price: 100,
+      price: 400,
       effect: 1.2,
     },
     {
@@ -223,7 +230,7 @@ function setDefault() {
       condition: 10,
       target: 4,
       purchased: false,
-      price: 100,
+      price: 500,
       effect: 1.2,
     },
     {
@@ -232,7 +239,7 @@ function setDefault() {
       condition: 10,
       target: 5,
       purchased: false,
-      price: 100,
+      price: 600,
       effect: 1.2,
     },
     {
@@ -241,7 +248,7 @@ function setDefault() {
       condition: 10,
       target: 6,
       purchased: false,
-      price: 100,
+      price: 700,
       effect: 1.2,
     },
     {
@@ -249,7 +256,7 @@ function setDefault() {
       condition: 10,
       target: 7,
       purchased: false,
-      price: 100,
+      price: 800,
       effect: 1.2,
     },
     {
@@ -279,6 +286,15 @@ function setDefault() {
       price: 1000,
       effect: 2,
     },
+    {
+      name: "Aurora",
+      type: "CpS",
+      condition: 100,
+      target: 0,
+      purchased: false,
+      price: 100,
+      effect: 2,
+    }
   ];
 
   ACHIEVEMENTS = [
@@ -324,7 +340,13 @@ function setDefault() {
   }
 ];
 
+SETTINGS = {
+  boatname : "Destiny",
 }
+
+
+}
+
 
 VALUES = setDefault();
 UPGRADES = setDefault();
@@ -381,7 +403,7 @@ function createUpgrades() {
             VALUES[`${UPGRADES[i].target}`].multiplier
           );
         } else if (UPGRADES[i].type === "clickers") {
-          clicvalue *= UPGRADES[i].effect;
+          clicvalue += UPGRADES[i].effect;
         }
 
         upButton.classList.remove("locked");
@@ -500,6 +522,7 @@ function createButtons() {
 }
 function updateScore() {
   score += clicvalue;
+  console.log(clicvalue);
   totalScore += clicvalue;
 
   displayScore();
@@ -511,7 +534,7 @@ setInterval(() => {
   prodPerSec = 0;
 
   for (let elem of VALUES) {
-    prodPerSec += elem.amount * elem.multiplier + (((elem.amount * elem.multiplier)/100) * CurrentBonus);
+    prodPerSec += (elem.amount * elem.multiplier);
     score += prodPerSec / 1000;
     totalScore += prodPerSec / 1000;
   }
@@ -548,6 +571,9 @@ setInterval(() => {
 function displayScore() {
   let woops = numberDisplay(score);
   scoreBox.innerText = `${woops} pirate coins`;
+
+  document.getElementById("valeurclic").innerHTML = `valeur de clic ${clicvalue}`;
+  document.getElementById("valeurbonus").innerHTML = `valeur de bonus ${CurrentBonus}`;
 }
 
 setInterval(displayScore, 100);
@@ -631,6 +657,22 @@ achievementHandler();
 spawnBonus();
 
 function bonusTime() {
+
+  let BONUSES = ["pirate", "random", "boost"];
+
+  let bonusRand = Math.floor(Math.random() * BONUSES.length);
+
+  if (BONUSES[bonusRand] == "pirate"){
+    alert("Lucky ! Your CpS  is multiplied by 777 for 30 secs");
+    CurrentBonus = 777;
+    prodPerSec *= 777;
+
+    setTimeout(() => {
+      CurrentBonus -= 777;
+    }, ((30 * 1000)*FrequencyBonus));
+
+  } else if ( BONUSES[bonusRand] == "random"){
+
   let random = Math.floor(Math.random() * VALUES.length);
   console.log(random);
 
@@ -638,7 +680,7 @@ function bonusTime() {
     bonusTime();
   } else {
   console.log(VALUES[random].amount);
-  let bonus = VALUES[random].amount * 100;
+  let bonus = VALUES[random].amount * 10;
   CurrentBonus += bonus;
   alert(`Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`)
   console.log("Bonus:" + CurrentBonus);
@@ -646,6 +688,7 @@ function bonusTime() {
   setTimeout(() => {
     CurrentBonus -= bonus;
   }, ((30 * 1000)*FrequencyBonus));
+}
 }
 }
 
