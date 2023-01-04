@@ -1,7 +1,7 @@
 let VALUES;
 let UPGRADES;
 let ACHIEVEMENTS;
-let SETTINGS; 
+let SETTINGS;
 
 let mainClicker = document.getElementById("mainClicker");
 let upgrades = document.getElementById("upgrades");
@@ -9,6 +9,7 @@ let shop = document.getElementById("shop");
 let achivBox = document.getElementById("achievements");
 let scoreBox = document.getElementById("score");
 let perSecond = document.getElementById("perSec");
+let achievButton = document.getElementById("seeachievements");
 
 let clicvalue = 1;
 let score = 0;
@@ -18,10 +19,7 @@ let priceFactor = 1.15;
 let CurrentBonus = 0;
 let FrequencyBonus = 1;
 
-
-
 function setDefault() {
-
   VALUES = [
     {
       name: "San",
@@ -206,7 +204,7 @@ function setDefault() {
       name: "Jongho's Apple breaking Combo",
       type: "building",
       description:
-      "Jongho's ability to break apples helps him to find coins faster by two percents",
+        "Jongho's ability to break apples helps him to find coins faster by two percents",
       condition: 10,
       target: 2,
       purchased: false,
@@ -217,7 +215,7 @@ function setDefault() {
       name: "Yeosang's Hehetmon Cuteness",
       type: "building",
       description:
-      "Yeosang's cute creature helps you find coins faster by two percents",
+        "Yeosang's cute creature helps you find coins faster by two percents",
       condition: 10,
       target: 3,
       purchased: false,
@@ -294,65 +292,62 @@ function setDefault() {
       purchased: false,
       price: 100,
       effect: 2,
-    }
+    },
   ];
 
   ACHIEVEMENTS = [
-  {
-    nom: "Welcome on board",
-    description: "Congrats ! You found your first pirate coin",
-    type: "totalscore",
-    condition: 1,
-    url : "./assets2/Gumlins.png",
-    announced : false
-  },
-  {
-    nom: "Welcome on board",
-    description: "Congrats You found 1000 coins!",
-    type: "totalscore",
-    condition: 1000,
-    url : "./assets2/SuperGumlins.png",
-    announced : false
-  },
-  {
-    nom: "Welcome on board",
-    description: "Congrats You found 100,000 coins!",
-    type: "totalscore",
-    condition: 100000,
-    url : "./assets2/HyperGumlins.png",
-    announced : false
-  },
-  {
-    nom: "Welcome on board",
-    description: "Congrats You found 100,000 coins!",
-    type: "totalscore",
-    condition: 100000000,
-    url : "./assets2/HyperGumlins.png",
-    announced : false
-  },
-  {
-    nom: "Welcome on board",
-    description: "Congrats You found 100,000 coins!",
-    type: "totalscore",
-    condition: 100000000000,
-    url : "./assets2/HyperGumlins.png",
-    announced : false
-  }
-];
+    {
+      nom: "Welcome on board",
+      description: "Congrats ! You found your first pirate coin",
+      type: "totalscore",
+      condition: 1,
+      url: "./assets2/Gumlins.png",
+      announced: false,
+    },
+    {
+      nom: "Welcome on board",
+      description: "Congrats You found 1000 coins!",
+      type: "totalscore",
+      condition: 1000,
+      url: "./assets2/SuperGumlins.png",
+      announced: false,
+    },
+    {
+      nom: "Welcome on board",
+      description: "Congrats You found 100,000 coins!",
+      type: "totalscore",
+      condition: 100000,
+      url: "./assets2/HyperGumlins.png",
+      announced: false,
+    },
+    {
+      nom: "Welcome on board",
+      description: "Congrats You found 100,000 coins!",
+      type: "totalscore",
+      condition: 100000000,
+      url: "./assets2/HyperGumlins.png",
+      announced: false,
+    },
+    {
+      nom: "Welcome on board",
+      description: "Congrats You found 100,000 coins!",
+      type: "totalscore",
+      condition: 100000000000,
+      url: "./assets2/HyperGumlins.png",
+      announced: false,
+    },
+  ];
 
-SETTINGS = {
-  boatname : "Destiny",
+  SETTINGS = {
+    boatname: "Destiny",
+  };
 }
 
-
-}
-
-
-VALUES = setDefault();
-UPGRADES = setDefault();
+setDefault();
+setInterval(saveGame, 1000);
 
 function createUpgrades() {
-  upgrades.innerHTML = "";
+  upgrades.textContent = "";
 
   for (let i = 0; i < UPGRADES.length; i++) {
     let upButton = document.createElement("button");
@@ -416,6 +411,9 @@ function createUpgrades() {
 }
 
 window.addEventListener("load", loadGame);
+achievButton.addEventListener("click", () => {
+  document.getElementById("achievements").classList.toggle("invisible");
+});
 
 function saveGame() {
   localStorage.setItem("score", score);
@@ -425,8 +423,6 @@ function saveGame() {
   localStorage.setItem("achievements", JSON.stringify(ACHIEVEMENTS));
   console.log("partie sauvegardée");
 }
-
-setInterval(saveGame, 1000);
 
 function loadGame() {
   let valeurs = localStorage.getItem("valeurs");
@@ -460,11 +456,13 @@ function loadGame() {
 
 setInterval(() => {
   let titleinfo = numberDisplay(score);
-  document.title = titleinfo.toLocaleString("en-IN", {maximumFractionDigits: 3}) + " pirate coins - Pirate Coins Dealer";
+  document.title =
+    titleinfo.toLocaleString("en-IN", { maximumFractionDigits: 3 }) +
+    " pirate coins - Pirate Coins Dealer";
 }, 2000);
 
 function createButtons() {
-  shop.innerHTML = "";
+  shop.textContent = "";
 
   for (let i = 0; i < VALUES.length; i++) {
     let element = document.createElement("button");
@@ -502,7 +500,7 @@ function createButtons() {
         score -= VALUES[i].price;
         displayScore();
         elementCont.innerText = `${VALUES[i].amount}`;
-        VALUES[i].price = VALUES[i].baseprice * (priceFactor ** VALUES[i].amount);
+        VALUES[i].price = VALUES[i].baseprice * priceFactor ** VALUES[i].amount;
         VALUES[i].price = Math.ceil(VALUES[i].price);
         let woup = numberDisplay(VALUES[i].price);
         elementPrice.innerText = `${woup}`;
@@ -534,13 +532,15 @@ setInterval(() => {
   prodPerSec = 0;
 
   for (let elem of VALUES) {
-    prodPerSec += (elem.amount * elem.multiplier);
+    prodPerSec += elem.amount * elem.multiplier;
     score += prodPerSec / 1000;
     totalScore += prodPerSec / 1000;
   }
 
   let produ = numberDisplay(prodPerSec);
-  perSecond.innerText = `${produ.toLocaleString("en-IN", {maximumFractionDigits: 3})} pirate coins per second`;
+  perSecond.innerText = `${produ.toLocaleString("en-IN", {
+    maximumFractionDigits: 3,
+  })} pirate coins per second`;
 
   for (let i = 0; i < VALUES.length; i++) {
     if (score < VALUES[i].price) {
@@ -565,15 +565,18 @@ setInterval(() => {
 
   achievementHandler();
   displayAchievements();
-
 }, 1);
 
 function displayScore() {
   let woops = numberDisplay(score);
   scoreBox.innerText = `${woops} pirate coins`;
 
-  document.getElementById("valeurclic").innerHTML = `valeur de clic ${clicvalue}`;
-  document.getElementById("valeurbonus").innerHTML = `valeur de bonus ${CurrentBonus}`;
+  document.getElementById(
+    "valeurclic"
+  ).innerHTML = `valeur de clic ${clicvalue}`;
+  document.getElementById(
+    "valeurbonus"
+  ).innerHTML = `valeur de bonus ${CurrentBonus}`;
 }
 
 setInterval(displayScore, 100);
@@ -594,30 +597,46 @@ function resetGame() {
   }
 }
 
-function displayAchievements(){
-
+function displayAchievements() {
   achivBox.innerHTML = "";
 
-  for (elem of ACHIEVEMENTS){
-  let duh = document.createElement("div");
-  duh.classList.add("achievementItem");
-  let achivImg = document.createElement("img");
-  achivImg.classList.add("achievementimg");
+  for (elem of ACHIEVEMENTS) {
+    let duh = document.createElement("div");
+    duh.classList.add("achievementItem");
+    let achivImg = document.createElement("img");
+    achivImg.classList.add("achievementimg");
 
-  if (elem.announced === true){
-  achivImg.src= elem.url;
-  } else {
-  achivImg.src= "./assets/Gumlins.png";
+    if (elem.announced === true) {
+      achivImg.src = elem.url;
+    } else {
+      achivImg.src = "./assets/Gumlins.png";
+    }
+
+    duh.appendChild(achivImg);
+    achivBox.appendChild(duh);
   }
-
-
-  duh.appendChild(achivImg);
-  achivBox.appendChild(duh);
-  
-}
 }
 
 displayAchievements();
+
+function achievementHandler() {
+  for (let i = 0; i < ACHIEVEMENTS.length; i++) {
+    if (ACHIEVEMENTS[i].type == "totalscore") {
+      if (
+        totalScore >= ACHIEVEMENTS[i].condition &&
+        ACHIEVEMENTS[i].announced === false
+      ) {
+        alert(ACHIEVEMENTS[i].description);
+        ACHIEVEMENTS[i].announced = true;
+      } else {
+        //
+      }
+    }
+  }
+}
+
+achievementHandler();
+spawnBonus();
 
 function spawnBonus() {
   setInterval(() => {
@@ -636,98 +655,101 @@ function spawnBonus() {
 
     setTimeout(() => {
       bonus.remove();
-    }, (8000 * FrequencyBonus));
-   }, ((60 * 1000)/FrequencyBonus));
+    }, 8000 * FrequencyBonus);
+  }, (60 * 1000) / FrequencyBonus);
 }
 
-function achievementHandler() {
-  for (let i = 0; i < ACHIEVEMENTS.length; i++ ){
-  if(ACHIEVEMENTS[i].type == "totalscore"){
-    if ((totalScore >= ACHIEVEMENTS[i].condition) && (ACHIEVEMENTS[i].announced === false)){
-     alert(ACHIEVEMENTS[i].description);
-     ACHIEVEMENTS[i].announced = true;
-    } else { 
-    //
-    }
-  }
-  }
-};
-
-achievementHandler();
-spawnBonus();
-
 function bonusTime() {
-
   let BONUSES = ["pirate", "random", "boost"];
 
   let bonusRand = Math.floor(Math.random() * BONUSES.length);
 
-  if (BONUSES[bonusRand] == "pirate"){
+  if (BONUSES[bonusRand] == "pirate") {
     alert("Lucky ! Your CpS  is multiplied by 777 for 30 secs");
     CurrentBonus = 777;
     prodPerSec *= 777;
 
     setTimeout(() => {
       CurrentBonus -= 777;
-    }, ((30 * 1000)*FrequencyBonus));
+    }, 30 * 1000 * FrequencyBonus);
+  } else if (BONUSES[bonusRand] == "random") {
+    let random = Math.floor(Math.random() * VALUES.length);
+    console.log(random);
 
-  } else if ( BONUSES[bonusRand] == "random"){
+    if (VALUES[random].amount === 0) {
+      bonusTime();
+    } else {
+      console.log(VALUES[random].amount);
+      let bonus = VALUES[random].amount * 10;
+      CurrentBonus += bonus;
+      alert(
+        `Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`
+      );
+      console.log("Bonus:" + CurrentBonus);
 
-  let random = Math.floor(Math.random() * VALUES.length);
-  console.log(random);
-
-  if (VALUES[random].amount === 0){
-    bonusTime();
-  } else {
-  console.log(VALUES[random].amount);
-  let bonus = VALUES[random].amount * 10;
-  CurrentBonus += bonus;
-  alert(`Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`)
-  console.log("Bonus:" + CurrentBonus);
-
-  setTimeout(() => {
-    CurrentBonus -= bonus;
-  }, ((30 * 1000)*FrequencyBonus));
-}
-}
+      setTimeout(() => {
+        CurrentBonus -= bonus;
+      }, 30 * 1000 * FrequencyBonus);
+    }
+  }
 }
 
 function numberDisplay(number) {
   if (number < 999) {
-    return `${number.toLocaleString("en-IN", { maximumFractionDigits: 1})}`;
+    return `${number.toLocaleString("en-IN", { maximumFractionDigits: 1 })}`;
   } else if (number < 10 ** 6) {
-    return `${(number/1000).toLocaleString("en-IN", {maximumFractionDigits:3})} thousands`;
+    return `${(number / 1000).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} thousands`;
   } else if (number < 10 ** 9) {
-    return `${(number / 10 ** 6).toLocaleString("en-IN", {maximumFractionDigits:3})} millions`;
+    return `${(number / 10 ** 6).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} millions`;
   } else if (number < 10 ** 12) {
-    return `${(number / 10 ** 9).toLocaleString("en-IN", {maximumFractionDigits:3})} billions`;
+    return `${(number / 10 ** 9).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} billions`;
   } else if (number < 10 ** 15) {
-    return `${(number / 10 ** 12).toLocaleString("en-IN", {maximumFractionDigits:3})} trillions`;
+    return `${(number / 10 ** 12).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} trillions`;
   } else if (number < 10 ** 18) {
-    return `${(number / 10 ** 15).toLocaleString("en-IN", {maximumFractionDigits:3})} quadrillions`;
+    return `${(number / 10 ** 15).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} quadrillions`;
   } else if (number < 10 ** 21) {
-    return `${(number / 10 ** 18).toLocaleString("en-IN", {maximumFractionDigits:3})} quintillions`;
+    return `${(number / 10 ** 18).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} quintillions`;
   } else if (number < 10 ** 24) {
-    return `${(number / 10 ** 21).toLocaleString("en-IN", {maximumFractionDigits:3})} sextillions`;
+    return `${(number / 10 ** 21).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} sextillions`;
   } else if (number < 10 ** 27) {
-    return `${(number / 10 ** 24).toLocaleString("en-IN", {maximumFractionDigits:3})} septillions`;
+    return `${(number / 10 ** 24).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} septillions`;
   } else if (number < 10 ** 30) {
-    return `${(number / 10 ** 27).toLocaleString("en-IN", {maximumFractionDigits:3})} octillions`;
+    return `${(number / 10 ** 27).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} octillions`;
   } else if (number < 10 ** 33) {
-    return `${(number / 10 ** 30).toLocaleString("en-IN", {maximumFractionDigits:3})} nonillions`;
+    return `${(number / 10 ** 30).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} nonillions`;
   } else if (number < 10 ** 36) {
-    return `${(number / 10 ** 33).toLocaleString("en-IN", {maximumFractionDigits:3})} decillions`;
+    return `${(number / 10 ** 33).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} decillions`;
   } else if (number < 10 ** 39) {
-    return `${(number / 10 ** 36).toLocaleString("en-IN", {maximumFractionDigits:3})} unidecillion`;
+    return `${(number / 10 ** 36).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} unidecillion`;
   } else if (number < 10 ** 42) {
-    return `${(number / 10 ** 39).toLocaleString("en-IN", {maximumFractionDigits:3})} decadecillion`;
-  }else {
-    return number.toLocaleString("de-DE", { maximumFractionDigits: 3})
+    return `${(number / 10 ** 39).toLocaleString("en-IN", {
+      maximumFractionDigits: 3,
+    })} decadecillion`;
+  } else {
+    return number.toLocaleString("de-DE", { maximumFractionDigits: 3 });
   }
 }
-
-let achievButton = document.getElementById("seeachievements");
-
-achievButton.addEventListener("click", () => {
-  document.getElementById("achievements").classList.toggle("invisible");
-})
