@@ -6,33 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="my take at cookie clicker">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gumball clicker</title>
+    <title>Pirate Coins Clicker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./assets/favico.ico.png" type="image/x-icon">
     <script defer src="index.js"></script>
 </head>
 
 <body>
-    <div class="checkbox">
-        <div id="valeurclic"></div>
-        <div id="valeurbonus"></div>
+
+    <div id="main"><span id="score"></span>
+        <span id="perSec">0</span>
+        <button id="mainClicker"></button>
+        <div class="checkbox">
+            <div id="valeurclic"></div>
+            <div id="valeurbonus"></div>
+        </div>
     </div>
-   <div id="main"><span id="score"></span>
-    <span id="perSec">0</span>
-    <button id="mainClicker"></button>
-    </div> 
     <button id="reset" onclick="resetGame()">Reset</button>
     <button id="seeachievements">Achievements</button>
     <div id="achievements" class="invisible"></div>
     <div id="upgrades">
-      
+
     </div>
 
     <div id="shop">
     </div>
-    <iframe style="display:none" width="420" height="315"
-    src="https://www.youtube.com/embed/AXzE5qM6PUc?autoplay=1&loop=1&muted=1" allow="autoplay">
-    </iframe> 
 </body>
 
 </html>

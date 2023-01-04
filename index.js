@@ -18,6 +18,8 @@ let totalScore = 0;
 let priceFactor = 1.15;
 let CurrentBonus = 0;
 let FrequencyBonus = 1;
+let prodPerSecWithBonus = 0;
+let addedValue = 0;
 
 function setDefault() {
   VALUES = [
@@ -345,75 +347,19 @@ function setDefault() {
 
 setDefault();
 setInterval(saveGame, 1000);
-
-function createUpgrades() {
-  upgrades.textContent = "";
-
-  for (let i = 0; i < UPGRADES.length; i++) {
-    let upButton = document.createElement("button");
-    upButton.setAttribute("id", `upgrade-${i}`);
-    upButton.classList.add("upgrade");
-
-    let upButtonText = document.createTextNode(
-      `UNLOCK ${UPGRADES[i].name} FOR ${UPGRADES[i].price}`
-    );
-    upButton.appendChild(upButtonText);
-
-    let upDescription = document.createElement("div");
-    upDescription.classList.add("description");
-
-    let upDescriptionText = document.createTextNode(
-      `${UPGRADES[i].description}`
-    );
-    upDescription.appendChild(upDescriptionText);
-    upButton.appendChild(upDescription);
-
-    upgrades.appendChild(upButton);
-
-    if (UPGRADES[i].purchased == true) {
-      upButton.classList.add("unlocked");
-      upButton.style.display = "block";
-    } else if (UPGRADES[i].condition == true) {
-      upButton.classList.add("locked");
-      upButton.style.display = "block";
-    } else {
-      upButton.classList.add("locked");
-      upButton.style.display = "none";
-    }
-
-    upButton.addEventListener("click", () => {
-      if (UPGRADES[i].price >= score) {
-        console.log("too expensive");
-      } else if (UPGRADES[i].purchased === true) {
-        console.log("déja achetée");
-      } else {
-        score -= UPGRADES[i].price;
-
-        UPGRADES[i].purchased = true;
-
-        if (UPGRADES[i].type === "building") {
-          VALUES[`${UPGRADES[i].target}`].multiplier =
-            VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
-          VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat(
-            VALUES[`${UPGRADES[i].target}`].multiplier
-          );
-        } else if (UPGRADES[i].type === "clickers") {
-          clicvalue += UPGRADES[i].effect;
-        }
-
-        upButton.classList.remove("locked");
-        upButton.classList.add("unlocked");
-
-        createButtons();
-      }
-    });
-  }
-}
+setInterval(() => {
+  let titleinfo = numberDisplay(score);
+  document.title =
+    titleinfo.toLocaleString("en-IN", { maximumFractionDigits: 3 }) +
+    " pirate coins - Pirate Coins Clicker";
+}, 2000);
+setInterval(displayScore, 100);
 
 window.addEventListener("load", loadGame);
 achievButton.addEventListener("click", () => {
   document.getElementById("achievements").classList.toggle("invisible");
 });
+mainClicker.addEventListener("click", updateScore);
 
 function saveGame() {
   localStorage.setItem("score", score);
@@ -454,12 +400,85 @@ function loadGame() {
   createUpgrades();
 }
 
-setInterval(() => {
-  let titleinfo = numberDisplay(score);
-  document.title =
-    titleinfo.toLocaleString("en-IN", { maximumFractionDigits: 3 }) +
-    " pirate coins - Pirate Coins Dealer";
-}, 2000);
+function resetGame() {
+  let reset = confirm("Are you sure you want to reset?");
+  if (reset == true) {
+    score = 0;
+    totalScore = 0;
+
+    setDefault();
+    saveGame();
+    displayAchievements();
+    createButtons();
+    createUpgrades();
+  } else {
+    console.log("Reset annulé");
+  }
+}
+
+function createUpgrades() {
+  upgrades.textContent = "";
+
+  for (let i = 0; i < UPGRADES.length; i++) {
+    let upButton = document.createElement("button");
+    upButton.setAttribute("id", `upgrade-${i}`);
+    upButton.classList.add("upgrade");
+
+    let upButtonText = document.createTextNode(
+      `UNLOCK ${UPGRADES[i].name} FOR ${UPGRADES[i].price}`
+    );
+    upButton.appendChild(upButtonText);
+
+    let upDescription = document.createElement("div");
+    upDescription.classList.add("description");
+
+    let upDescriptionText = document.createTextNode(
+      `${UPGRADES[i].description}`
+    );
+    upDescription.appendChild(upDescriptionText);
+    upButton.appendChild(upDescription);
+
+    upgrades.appendChild(upButton);
+
+    if (UPGRADES[i].purchased == true) {
+      upButton.classList.add("unlocked");
+      upButton.style.display = "block";
+    } else if (UPGRADES[i].condition == true) {
+      upButton.classList.add("unavailable");
+      upButton.style.display = "block";
+    } else {
+      upButton.classList.add("locked");
+      upButton.style.display = "none";
+    }
+
+    upButton.addEventListener("click", () => {
+      if (UPGRADES[i].price >= score) {
+        console.log("too expensive");
+      } else if (UPGRADES[i].purchased === true) {
+        console.log("déja achetée");
+      } else {
+        score -= UPGRADES[i].price;
+
+        UPGRADES[i].purchased = true;
+
+        if (UPGRADES[i].type === "building") {
+          VALUES[`${UPGRADES[i].target}`].multiplier =
+            VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
+          VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat(
+            VALUES[`${UPGRADES[i].target}`].multiplier
+          );
+        } else if (UPGRADES[i].type === "clickers") {
+          clicvalue += UPGRADES[i].effect;
+        }
+
+        upButton.classList.remove("locked");
+        upButton.classList.add("unlocked");
+
+        createButtons();
+      }
+    });
+  }
+}
 
 function createButtons() {
   shop.textContent = "";
@@ -518,26 +537,25 @@ function createButtons() {
     shop.appendChild(element);
   }
 }
+
 function updateScore() {
   score += clicvalue;
-  console.log(clicvalue);
   totalScore += clicvalue;
 
   displayScore();
 }
-
-mainClicker.addEventListener("click", updateScore);
 
 setInterval(() => {
   prodPerSec = 0;
 
   for (let elem of VALUES) {
     prodPerSec += elem.amount * elem.multiplier;
-    score += prodPerSec / 1000;
-    totalScore += prodPerSec / 1000;
+    prodPerSecWithBonus = prodPerSec + addedValue;
+    score += prodPerSecWithBonus / 1000;
+    totalScore += prodPerSecWithBonus / 1000;
   }
 
-  let produ = numberDisplay(prodPerSec);
+  let produ = numberDisplay(prodPerSecWithBonus);
   perSecond.innerText = `${produ.toLocaleString("en-IN", {
     maximumFractionDigits: 3,
   })} pirate coins per second`;
@@ -579,24 +597,6 @@ function displayScore() {
   ).innerHTML = `valeur de bonus ${CurrentBonus}`;
 }
 
-setInterval(displayScore, 100);
-
-function resetGame() {
-  let reset = confirm("Are you sure you want to reset?");
-  if (reset == true) {
-    score = 0;
-    totalScore = 0;
-
-    setDefault();
-    saveGame();
-    displayAchievements();
-    createButtons();
-    createUpgrades();
-  } else {
-    console.log("Reset annulé");
-  }
-}
-
 function displayAchievements() {
   achivBox.innerHTML = "";
 
@@ -612,85 +612,15 @@ function displayAchievements() {
       achivImg.src = "./assets/Gumlins.png";
     }
 
+    let achiDescription = document.createElement("div");
+    achiDescription.classList.add("description");
+
+    let achiDescriptionText = document.createTextNode(`${elem.description}`);
+    achiDescription.appendChild(achiDescriptionText);
+    duh.appendChild(achiDescription);
+
     duh.appendChild(achivImg);
     achivBox.appendChild(duh);
-  }
-}
-
-displayAchievements();
-
-function achievementHandler() {
-  for (let i = 0; i < ACHIEVEMENTS.length; i++) {
-    if (ACHIEVEMENTS[i].type == "totalscore") {
-      if (
-        totalScore >= ACHIEVEMENTS[i].condition &&
-        ACHIEVEMENTS[i].announced === false
-      ) {
-        alert(ACHIEVEMENTS[i].description);
-        ACHIEVEMENTS[i].announced = true;
-      } else {
-        //
-      }
-    }
-  }
-}
-
-achievementHandler();
-spawnBonus();
-
-function spawnBonus() {
-  setInterval(() => {
-    let bonus = document.createElement("button");
-    let bonusTxt = document.createTextNode("Bonus");
-    bonus.appendChild(bonusTxt);
-    bonus.classList.add("bonusButton");
-    bonus.style.left = `${Math.random() * window.innerWidth}px`;
-    bonus.style.top = `${Math.random() * window.innerHeight}px`;
-    document.body.appendChild(bonus);
-
-    bonus.addEventListener("click", () => {
-      bonus.remove();
-      bonusTime();
-    });
-
-    setTimeout(() => {
-      bonus.remove();
-    }, 8000 * FrequencyBonus);
-  }, (60 * 1000) / FrequencyBonus);
-}
-
-function bonusTime() {
-  let BONUSES = ["pirate", "random", "boost"];
-
-  let bonusRand = Math.floor(Math.random() * BONUSES.length);
-
-  if (BONUSES[bonusRand] == "pirate") {
-    alert("Lucky ! Your CpS  is multiplied by 777 for 30 secs");
-    CurrentBonus = 777;
-    prodPerSec *= 777;
-
-    setTimeout(() => {
-      CurrentBonus -= 777;
-    }, 30 * 1000 * FrequencyBonus);
-  } else if (BONUSES[bonusRand] == "random") {
-    let random = Math.floor(Math.random() * VALUES.length);
-    console.log(random);
-
-    if (VALUES[random].amount === 0) {
-      bonusTime();
-    } else {
-      console.log(VALUES[random].amount);
-      let bonus = VALUES[random].amount * 10;
-      CurrentBonus += bonus;
-      alert(
-        `Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`
-      );
-      console.log("Bonus:" + CurrentBonus);
-
-      setTimeout(() => {
-        CurrentBonus -= bonus;
-      }, 30 * 1000 * FrequencyBonus);
-    }
   }
 }
 
@@ -751,5 +681,81 @@ function numberDisplay(number) {
     })} decadecillion`;
   } else {
     return number.toLocaleString("de-DE", { maximumFractionDigits: 3 });
+  }
+}
+
+function achievementHandler() {
+  for (let i = 0; i < ACHIEVEMENTS.length; i++) {
+    if (ACHIEVEMENTS[i].type == "totalscore") {
+      if (
+        totalScore >= ACHIEVEMENTS[i].condition &&
+        ACHIEVEMENTS[i].announced === false
+      ) {
+        alert(ACHIEVEMENTS[i].description);
+        ACHIEVEMENTS[i].announced = true;
+      } else {
+        //
+      }
+    }
+  }
+}
+
+displayAchievements();
+achievementHandler();
+spawnBonus();
+
+function spawnBonus() {
+  setInterval(() => {
+    let bonus = document.createElement("button");
+    bonus.classList.add("bonusButton");
+    bonus.width = 300;
+    bonus.height = 200;
+    bonus.style.left = `${Math.random() * window.innerWidth}px`;
+    bonus.style.top = `${Math.random() * window.innerHeight}px`;
+    document.body.appendChild(bonus);
+
+    bonus.addEventListener("click", () => {
+      bonus.remove();
+      bonusTime();
+    });
+
+    setTimeout(() => {
+      bonus.remove();
+    }, 8000 * FrequencyBonus);
+  }, (60 * 1000) / FrequencyBonus);
+}
+
+function bonusTime() {
+  let BONUSES = ["pirate", "random", "boost"];
+
+  let bonusRand = Math.floor(Math.random() * BONUSES.length);
+
+  if (BONUSES[bonusRand] == "pirate") {
+    alert("Lucky ! Your CpS  is multiplied by 777 for 30 secs");
+    addedValue += prodPerSec * 776;
+
+    setTimeout(() => {
+      addedValue -= prodPerSec * 776;
+    }, 30 * 1000 * FrequencyBonus);
+  } else if (BONUSES[bonusRand] == "random") {
+    let random = Math.floor(Math.random() * VALUES.length);
+    console.log(random);
+
+    if (VALUES[random].amount === 0) {
+      bonusTime();
+    } else {
+      console.log(VALUES[random].amount);
+      let bonus = VALUES[random].amount * 10;
+      CurrentBonus += bonus;
+      addedValue += (prodPerSec / 100) * (VALUES[random].amount * 10);
+      alert(
+        `Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`
+      );
+      console.log("Bonus:" + CurrentBonus);
+
+      setTimeout(() => {
+        CurrentBonus -= bonus;
+      }, 30 * 1000 * FrequencyBonus);
+    }
   }
 }
