@@ -1,4 +1,7 @@
-let VALUES;
+import upgradeStack from "./modules/upgrades.js";
+import { BonusGenerator } from "./modules/classes/bonusGenerator.js";
+
+/** let VALUES;
 let UPGRADES;
 let ACHIEVEMENTS;
 let SETTINGS;
@@ -758,4 +761,10 @@ function bonusTime() {
       }, 30 * 1000 * FrequencyBonus);
     }
   }
-}
+}*/
+
+
+upgradeStack()
+const idk = new BonusGenerator("coucou","bye")
+console.log(idk)
+
