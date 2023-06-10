@@ -1,15 +1,15 @@
-import { ACHIEVEMENTS } from "./constants/ACHIEVEMENTS.js";
+import { PopIt } from "./popup.js";
 
-export function achievementHandler() {
-    let totalScore = 0
-    for (let i = 0; i < ACHIEVEMENTS.length; i++) {
-      if (ACHIEVEMENTS[i].type == "totalscore") {
+export function achievementHandler(joueur) {
+    for (let i = 0; i < joueur.achievements.length; i++) {
+      if (joueur.achievements[i].type == "totalscore") {
         if (
-          totalScore >= ACHIEVEMENTS[i].condition &&
-          ACHIEVEMENTS[i].announced === false
+          joueur.stats.totalScore >= joueur.achievements[i].condition &&
+          joueur.achievements[i].announced === false
         ) {
-          alert(ACHIEVEMENTS[i].description);
-          ACHIEVEMENTS[i].announced = true;
+          alert(joueur.achievements[i].description);
+          joueur.achievements[i].announced = true;
+          PopIt()
         } else {
           //
         }

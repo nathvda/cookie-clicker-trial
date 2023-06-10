@@ -249,6 +249,13 @@ body #shop .controller .prix {
   left: 5rem;
   font-weight: bold;
 }
+body .popup_achiev {
+  display: block;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-color: yellow;
+}
 body .bonusButton {
   background-color: transparent;
   background-image: url("./assets2/bonus.png");
