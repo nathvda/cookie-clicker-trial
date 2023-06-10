@@ -1,6 +1,7 @@
 import { ACHIEVEMENTS } from "./constants/ACHIEVEMENTS.js";
 
 export function achievementHandler() {
+    let totalScore = 0
     for (let i = 0; i < ACHIEVEMENTS.length; i++) {
       if (ACHIEVEMENTS[i].type == "totalscore") {
         if (

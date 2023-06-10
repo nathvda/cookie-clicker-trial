@@ -1,4 +1,5 @@
 import { bonusTime } from "./bonusTimes.js";
+import { Player } from "./classes/Player.js";
 
 export function createBonus() {
     setInterval(() => {
@@ -17,6 +18,6 @@ export function createBonus() {
   
       setTimeout(() => {
         bonus.remove();
-      }, 8000 * FrequencyBonus);
-    }, (60 * 1000) / FrequencyBonus);
+      }, 8000 * Player.FrequencyBonus);
+    }, (60 * 1000) / Player.FrequencyBonus);
   }

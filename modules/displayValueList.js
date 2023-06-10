@@ -1,7 +1,10 @@
 import { VALUES } from "./constants/VALUES.js";
 import { numberDisplay } from "./numberDisplay.js";
+import { displayScore } from "./displayScore.js";
 
-export function displayValueList () {
+export function displayValueList(newPlayer) {
+        let priceFactor = 1.15;
+
   
         shop.textContent = "";
       
@@ -37,7 +40,7 @@ export function displayValueList () {
       
           element.addEventListener("click", () => {
             if (score >= VALUES[i].price) {
-              VALUES[i].amount++;
+              newPlayer.values[i].amount++;
               score -= VALUES[i].price;
               displayScore();
               elementCont.innerText = `${VALUES[i].amount}`;

@@ -1,5 +1,6 @@
 export function bonusTime() {
     let BONUSES = ["pirate", "random", "boost"];
+    let CurrentBonus = 0;
   
     let bonusRand = Math.floor(Math.random() * BONUSES.length);
   

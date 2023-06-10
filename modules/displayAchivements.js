@@ -1,9 +1,11 @@
 import { ACHIEVEMENTS } from "./constants/ACHIEVEMENTS.js";
+let achivBox = document.getElementById("achievements");
 
 export function displayAchievements() {
+
     achivBox.innerHTML = "";
   
-    for (elem of ACHIEVEMENTS) {
+    for (let elem of ACHIEVEMENTS) {
       let duh = document.createElement("div");
       duh.classList.add("achievementItem");
       let achivImg = document.createElement("img");
@@ -12,7 +14,7 @@ export function displayAchievements() {
       if (elem.announced === true) {
         achivImg.src = elem.url;
       } else {
-        achivImg.src = "./assets/Gumlins.png";
+        achivImg.src = "./assets2/Gumlins.png";
       }
   
       let achiDescription = document.createElement("div");
