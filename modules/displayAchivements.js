@@ -1,11 +1,10 @@
-import { ACHIEVEMENTS } from "./constants/ACHIEVEMENTS.js";
 let achivBox = document.getElementById("achievements");
 
-export function displayAchievements() {
+export function displayAchievements(joueur) {
 
     achivBox.innerHTML = "";
   
-    for (let elem of ACHIEVEMENTS) {
+    for (let elem of joueur.achievements) {
       let duh = document.createElement("div");
       duh.classList.add("achievementItem");
       let achivImg = document.createElement("img");
