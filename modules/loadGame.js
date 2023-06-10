@@ -22,6 +22,7 @@ export function loadGame() {
         displayAchievements(stored);
         displayValueList(stored);
         createUpgrades(stored);
+        saveGame(Player)
         return stored
     }
         

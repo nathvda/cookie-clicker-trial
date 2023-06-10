@@ -254,7 +254,12 @@ body .popup_achiev {
   position: absolute;
   right: 1rem;
   top: 1rem;
-  background-color: yellow;
+  background-color: rgb(39, 39, 39);
+  color: beige;
+  font-family: inter;
+  padding: 1rem;
+  width: 100px;
+  border-radius: 0 0 0 1rem;
 }
 body .bonusButton {
   background-color: transparent;
