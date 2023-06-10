@@ -1,32 +1,32 @@
-import { VALUES } from "./constants/VALUES.js";
 import { numberDisplay } from "./numberDisplay.js";
 import { displayScore } from "./displayScore.js";
+import { saveGame } from "./saveGame.js";
 
-export function displayValueList(newPlayer) {
-        let priceFactor = 1.15;
+export function displayValueList(joueur) {
 
-  
         shop.textContent = "";
+
+        console.log(joueur.stats.score);
       
-        for (let i = 0; i < VALUES.length; i++) {
+        for (let i = 0; i < joueur.values.length; i++) {
           let element = document.createElement("button");
           element.setAttribute("id", `controller-${i}`);
           element.classList.add("controller", "disabled", "hidden");
-          element.style.backgroundImage = `url("${VALUES[i].background}")`;
+          element.style.backgroundImage = `url("${joueur.values[i].background}")`;
           let elementName = document.createElement("span");
           elementName.classList.add("multname");
-          let elementNameText = document.createTextNode(`${VALUES[i].name}`);
+          let elementNameText = document.createTextNode(`${joueur.values[i].name}`);
           let elementValeur = document.createElement("span");
           elementValeur.classList.add("valeur");
-          let elementValeurText = document.createTextNode(`${VALUES[i].multiplier}`);
+          let elementValeurText = document.createTextNode(`${joueur.values[i].multiplier}`);
           let elementCont = document.createElement("span");
           elementCont.classList.add("cont");
           elementCont.setAttribute("id", `cont-${1}`);
-          let elementContText = document.createTextNode(`${VALUES[i].amount}`);
+          let elementContText = document.createTextNode(`${joueur.values[i].amount}`);
           let elementPrice = document.createElement("span");
           elementPrice.classList.add("prix");
-          elementPrice.setAttribute("id", `prix-${1}`);
-          let woup = numberDisplay(VALUES[i].price);
+          elementPrice.setAttribute("id", `prix-${i}`);
+          let woup = numberDisplay(joueur.values[i].price);
           let elementPriceText = document.createTextNode(`${woup}`);
       
           elementName.appendChild(elementNameText);
@@ -39,23 +39,28 @@ export function displayValueList(newPlayer) {
           element.appendChild(elementPrice);
       
           element.addEventListener("click", () => {
-            if (score >= VALUES[i].price) {
-              newPlayer.values[i].amount++;
-              score -= VALUES[i].price;
-              displayScore();
-              elementCont.innerText = `${VALUES[i].amount}`;
-              VALUES[i].price = VALUES[i].baseprice * priceFactor ** VALUES[i].amount;
-              VALUES[i].price = Math.ceil(VALUES[i].price);
-              let woup = numberDisplay(VALUES[i].price);
+            if (joueur.stats.score >= joueur.values[i].price) {
+              joueur.values[i].amount += 1;
+              joueur.stats.score -= joueur.values[i].price;
+              elementCont.innerText = `${joueur.values[i].amount}`;
+              joueur.values[i].price = joueur.values[i].baseprice * joueur.stats.priceFactor ** joueur.values[i].amount;
+              joueur.values[i].price = Math.ceil(joueur.values[i].price);
+              let woup = numberDisplay(joueur.values[i].price);
               elementPrice.innerText = `${woup}`;
-              localStorage.setItem("valeurs", JSON.stringify(VALUES));
-              if (score < VALUES[i].price) {
+              saveGame(joueur);
+             
+              if (joueur.stats.score < joueur.values[i].price) {
                 element.classList.add("disabled");
               } else {
                 element.classList.remove("disabled");
               }
+              displayScore(joueur);
+              console.log(joueur.values)
+
             } else {
               console.log("Can't buy that");
+              console.log(joueur.stats.score);
+
             }
           });
       

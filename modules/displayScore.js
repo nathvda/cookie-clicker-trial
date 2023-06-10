@@ -1,18 +1,13 @@
 import { numberDisplay } from "./numberDisplay.js";
 
-let clicvalue = 1;
-
-
-export function displayScore() {
-    let CurrentBonus = 0;
-    let woops = numberDisplay(score);
+export function displayScore(joueur) {
+    let woops = numberDisplay(Number(joueur.stats.score));
     let scoreBox = document.getElementById("score");
     scoreBox.innerText = `${woops} pirate coins`;
-  
     document.getElementById(
       "valeurclic"
-    ).innerHTML = `valeur de clic ${clicvalue}`;
+    ).innerHTML = `valeur de clic ${joueur.stats.clicvalue}`;
     document.getElementById(
       "valeurbonus"
-    ).innerHTML = `valeur de bonus ${CurrentBonus}`;
+    ).innerHTML = `valeur de bonus ${joueur.stats.currentBonus}`;
   }

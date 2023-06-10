@@ -1,18 +1,17 @@
-import { UPGRADES } from "./constants/UPGRADES.js";
 import { VALUES } from "./constants/VALUES.js";
 import { displayValueList } from "./displayValueList.js";
 
-export function createUpgrades() {
+export function createUpgrades(joueur) {
     let upgrades = document.getElementById("upgrades");
     upgrades.textContent = "";
   
-    for (let i = 0; i < UPGRADES.length; i++) {
+    for (let i = 0; i < joueur.upgrades.length; i++) {
       let upButton = document.createElement("button");
       upButton.setAttribute("id", `upgrade-${i}`);
       upButton.classList.add("upgrade");
   
       let upButtonText = document.createTextNode(
-        `UNLOCK ${UPGRADES[i].name} FOR ${UPGRADES[i].price}`
+        `UNLOCK ${joueur.upgrades[i].name} FOR ${joueur.upgrades[i].price}`
       );
       upButton.appendChild(upButtonText);
   
@@ -20,17 +19,17 @@ export function createUpgrades() {
       upDescription.classList.add("description");
   
       let upDescriptionText = document.createTextNode(
-        `${UPGRADES[i].description}`
+        `${joueur.upgrades[i].description}`
       );
       upDescription.appendChild(upDescriptionText);
       upButton.appendChild(upDescription);
   
       upgrades.appendChild(upButton);
   
-      if (UPGRADES[i].purchased == true) {
+      if (joueur.upgrades[i].purchased == true) {
         upButton.classList.add("unlocked");
         upButton.style.display = "block";
-      } else if (UPGRADES[i].condition == true) {
+      } else if (joueur.upgrades[i].condition == true) {
         upButton.classList.add("unavailable");
         upButton.style.display = "block";
       } else {
@@ -39,29 +38,29 @@ export function createUpgrades() {
       }
   
       upButton.addEventListener("click", () => {
-        if (UPGRADES[i].price >= score) {
+        if (joueur.upgrades[i].price >= joueur.stats.score) {
           console.log("too expensive");
-        } else if (UPGRADES[i].purchased === true) {
+        } else if (joueur.upgrades[i].purchased === true) {
           console.log("déja achetée");
         } else {
-          score -= UPGRADES[i].price;
+          joueur.stats.score -= joueur.upgrades[i].price;
   
-          UPGRADES[i].purchased = true;
+          joueur.upgrades[i].purchased = true;
   
-          if (UPGRADES[i].type === "building") {
-            VALUES[`${UPGRADES[i].target}`].multiplier =
-              VALUES[`${UPGRADES[i].target}`].multiplier * UPGRADES[i].effect;
-            VALUES[`${UPGRADES[i].target}`].multiplier = parseFloat(
-              VALUES[`${UPGRADES[i].target}`].multiplier
+          if (joueur.upgrades[i].type === "building") {
+            VALUES[`${joueur.upgrades[i].target}`].multiplier =
+              VALUES[`${joueur.upgrades[i].target}`].multiplier * joueur.upgrades[i].effect;
+            VALUES[`${joueur.upgrades[i].target}`].multiplier = parseFloat(
+              VALUES[`${joueur.upgrades[i].target}`].multiplier
             );
-          } else if (UPGRADES[i].type === "clickers") {
-            clicvalue += UPGRADES[i].effect;
+          } else if (joueur.upgrades[i].type === "clickers") {
+            clicvalue += joueur.upgrades[i].effect;
           }
   
           upButton.classList.remove("locked");
           upButton.classList.add("unlocked");
   
-          displayValueList();
+          displayValueList(joueur);
         }
       });
     }
