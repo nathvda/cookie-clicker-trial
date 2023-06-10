@@ -1,9 +1,8 @@
-import { VALUES } from "../constants/VALUES.js";
-import { numberDisplay } from "../numberDisplay.js";
+import { VALUES } from "./constants/VALUES.js";
+import { numberDisplay } from "./numberDisplay.js";
 
 export function displayValueList () {
-    console.log("it is working")
-
+  
         shop.textContent = "";
       
         for (let i = 0; i < VALUES.length; i++) {

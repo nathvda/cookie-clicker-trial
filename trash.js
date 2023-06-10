@@ -1,12 +1,8 @@
 
-/** let VALUES;
-let UPGRADES;
-let ACHIEVEMENTS;
-let SETTINGS;
+/** let SETTINGS;
 
 let mainClicker = document.getElementById("mainClicker");
 let upgrades = document.getElementById("upgrades");
-let shop = document.getElementById("shop");
 let achivBox = document.getElementById("achievements");
 let scoreBox = document.getElementById("score");
 let perSecond = document.getElementById("perSec");
@@ -49,6 +45,7 @@ function setDefault() {
   achievButton.addEventListener("click", () => {
     document.getElementById("achievements").classList.toggle("invisible");
   });
+  
   mainClicker.addEventListener("click", updateScore);
   
   function saveGame() {
@@ -203,121 +200,20 @@ function setDefault() {
     displayAchievements();
   }, 1);
   
-  function displayScore() {
-    let woops = numberDisplay(score);
-    scoreBox.innerText = `${woops} pirate coins`;
+ 
   
-    document.getElementById(
-      "valeurclic"
-    ).innerHTML = `valeur de clic ${clicvalue}`;
-    document.getElementById(
-      "valeurbonus"
-    ).innerHTML = `valeur de bonus ${CurrentBonus}`;
-  }
-  
-  function displayAchievements() {
-    achivBox.innerHTML = "";
-  
-    for (elem of ACHIEVEMENTS) {
-      let duh = document.createElement("div");
-      duh.classList.add("achievementItem");
-      let achivImg = document.createElement("img");
-      achivImg.classList.add("achievementimg");
-  
-      if (elem.announced === true) {
-        achivImg.src = elem.url;
-      } else {
-        achivImg.src = "./assets/Gumlins.png";
-      }
-  
-      let achiDescription = document.createElement("div");
-      achiDescription.classList.add("description");
-  
-      let achiDescriptionText = document.createTextNode(`${elem.description}`);
-      achiDescription.appendChild(achiDescriptionText);
-      duh.appendChild(achiDescription);
-  
-      duh.appendChild(achivImg);
-      achivBox.appendChild(duh);
-    }
-  }
+
   
   
   
-  function achievementHandler() {
-    for (let i = 0; i < ACHIEVEMENTS.length; i++) {
-      if (ACHIEVEMENTS[i].type == "totalscore") {
-        if (
-          totalScore >= ACHIEVEMENTS[i].condition &&
-          ACHIEVEMENTS[i].announced === false
-        ) {
-          alert(ACHIEVEMENTS[i].description);
-          ACHIEVEMENTS[i].announced = true;
-        } else {
-          //
-        }
-      }
-    }
-  }
+
   
   displayAchievements();
   achievementHandler();
   spawnBonus();
   
-  function spawnBonus() {
-    setInterval(() => {
-      let bonus = document.createElement("button");
-      bonus.classList.add("bonusButton");
-      bonus.width = 300;
-      bonus.height = 200;
-      bonus.style.left = `${Math.random() * window.innerWidth}px`;
-      bonus.style.top = `${Math.random() * window.innerHeight}px`;
-      document.body.appendChild(bonus);
   
-      bonus.addEventListener("click", () => {
-        bonus.remove();
-        bonusTime();
-      });
   
-      setTimeout(() => {
-        bonus.remove();
-      }, 8000 * FrequencyBonus);
-    }, (60 * 1000) / FrequencyBonus);
-  }
-  
-  function bonusTime() {
-    let BONUSES = ["pirate", "random", "boost"];
-  
-    let bonusRand = Math.floor(Math.random() * BONUSES.length);
-  
-    if (BONUSES[bonusRand] == "pirate") {
-      alert("Lucky ! Your CpS  is multiplied by 777 for 30 secs");
-      addedValue += prodPerSec * 776;
-  
-      setTimeout(() => {
-        addedValue -= prodPerSec * 776;
-      }, 30 * 1000 * FrequencyBonus);
-    } else if (BONUSES[bonusRand] == "random") {
-      let random = Math.floor(Math.random() * VALUES.length);
-      console.log(random);
-  
-      if (VALUES[random].amount === 0) {
-        bonusTime();
-      } else {
-        console.log(VALUES[random].amount);
-        let bonus = VALUES[random].amount * 10;
-        CurrentBonus += bonus;
-        addedValue += (prodPerSec / 100) * (VALUES[random].amount * 10);
-        alert(
-          `Wow, your ${VALUES[random].name} are in a frenzy, your coins per second are increased by ${bonus}% for 30 seconds`
-        );
-        console.log("Bonus:" + CurrentBonus);
-  
-        setTimeout(() => {
-          CurrentBonus -= bonus;
-        }, 30 * 1000 * FrequencyBonus);
-      }
-    }
-  }*/
+  */
   
   
