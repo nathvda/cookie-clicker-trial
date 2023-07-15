@@ -291,17 +291,28 @@ body {
 
     }
 
-    .popup_achiev{
-        display:block;
-        position:absolute;
-        right:1rem;
-        top:1rem;
-        background-color:rgb(39, 39, 39);
-        color:beige;
-        font-family:inter;
-        padding:1rem;
-        width:100px;
-        border-radius:0 0 0 1rem;
+    .popup_achiev {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background-color: rgb(39, 39, 39);
+        color: beige;
+        font-family: inter;
+        padding: 1rem;
+        width: 375px;
+        border-radius: 0 0 0 1rem;
+
+        &::after {
+            display: block;
+            content: '';
+            background-color: pink;
+            height: 4px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            animation: shrink 8s forwards linear;
+        }
     }
 
     .bonusButton {
@@ -337,5 +348,15 @@ body {
             top: 0;
             bottom: 0;
         }
+    }
+}
+
+@keyframes shrink {
+    0% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
     }
 }

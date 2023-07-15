@@ -258,8 +258,18 @@ body .popup_achiev {
   color: beige;
   font-family: inter;
   padding: 1rem;
-  width: 100px;
+  width: 375px;
   border-radius: 0 0 0 1rem;
+}
+body .popup_achiev::after {
+  display: block;
+  content: "";
+  background-color: pink;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  animation: shrink 8s forwards linear;
 }
 body .bonusButton {
   background-color: transparent;
@@ -290,5 +300,13 @@ body .bonusButton {
     right: 0;
     top: 0;
     bottom: 0;
+  }
+}
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
   }
 }/*# sourceMappingURL=style.css.map */
