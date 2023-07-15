@@ -9,7 +9,7 @@ export function achievementHandler(joueur) {
       ) {
         alert(joueur.achievements[i].description);
         joueur.achievements[i].announced = true;
-        PopIt(joueur.achievements[i].description);
+        PopIt(joueur.achievements[i].description, joueur.achievements[i].nom);
       } else {
         //
       }
