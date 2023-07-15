@@ -7,7 +7,6 @@ export function achievementHandler(joueur) {
         joueur.stats.totalScore >= joueur.achievements[i].condition &&
         joueur.achievements[i].announced === false
       ) {
-        alert(joueur.achievements[i].description);
         joueur.achievements[i].announced = true;
         PopIt(joueur.achievements[i].description, joueur.achievements[i].nom);
       } else {
