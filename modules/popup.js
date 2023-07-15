@@ -11,4 +11,7 @@ export function PopIt(message, title) {
   setTimeout(() => {
     element.remove();
   }, 8000);
+  element.addEventListener("click", (e) => {
+    element.remove();
+  });
 }
