@@ -1,5 +1,6 @@
 import { achievementHandler } from "./modules/achievementHandler.js";
 import { addClickValue } from "./modules/addClickValue.js";
+import { createBonus } from "./modules/createBonus.js";
 import { displayAchievements } from "./modules/displayAchivements.js";
 import { displayScore } from "./modules/displayScore.js";
 import { loadGame } from "./modules/loadGame.js";
@@ -17,6 +18,10 @@ achievementHandler(Joueur);
 displayAchievements(Joueur);
 updateScore(Joueur);
 displayScore(Joueur);
+
+setInterval(() => {
+  createBonus(Joueur);
+}, 8000);
 
 document.getElementById("reset").addEventListener("click", () => {
   resetGame(Joueur);
