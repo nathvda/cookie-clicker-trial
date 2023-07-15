@@ -8,7 +8,6 @@ import { saveGame } from "./saveGame.js";
 export function loadGame() {
   let save = localStorage.getItem("gamesave");
   let stored = JSON.parse(save);
-  console.log(stored);
 
   if (!stored) {
     displayScore(Player);

@@ -19,7 +19,5 @@ export function resetGame(joueur) {
     displayValueList(joueur);
     createUpgrades(joueur);
     window.location.reload();
-  } else {
-    console.log("Reset annulé");
   }
 }
