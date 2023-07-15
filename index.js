@@ -1,12 +1,12 @@
-import { resetGame } from "./modules/resetGame.js";
 import { achievementHandler } from "./modules/achievementHandler.js";
+import { addClickValue } from "./modules/addClickValue.js";
 import { displayAchievements } from "./modules/displayAchivements.js";
 import { displayScore } from "./modules/displayScore.js";
-import { saveGame } from "./modules/saveGame.js";
-import { updateScore } from "./modules/updateScore.js";
 import { loadGame } from "./modules/loadGame.js";
 import { numberDisplay } from "./modules/numberDisplay.js";
-import { addClickValue } from "./modules/addClickValue.js";
+import { resetGame } from "./modules/resetGame.js";
+import { saveGame } from "./modules/saveGame.js";
+import { updateScore } from "./modules/updateScore.js";
 
 let Joueur = loadGame();
 
@@ -18,8 +18,12 @@ displayAchievements(Joueur);
 updateScore(Joueur);
 displayScore(Joueur);
 
+setInterval(() => {
+  createBonus(Joueur);
+}, 1000 * Joueur.stats.frequencyBonus);
+
 document.getElementById("reset").addEventListener("click", () => {
-  resetGame(Joueur)
+  resetGame(Joueur);
 });
 
 setInterval(() => {
