@@ -18,7 +18,7 @@ export function resetGame(joueur) {
     displayAchievements(joueur);
     displayValueList(joueur);
     createUpgrades(joueur);
-    // window.location.reload();
+    window.location.reload();
   } else {
     console.log("Reset annulé");
   }

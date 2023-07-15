@@ -1,5 +1,15 @@
 export const UPGRADES = [
   {
+    name: "Good shovels",
+    type: "building",
+    description: "Your shovels are now twice as effective!",
+    condition: 10,
+    target: 0,
+    purchased: false,
+    price: 100,
+    effect: 2,
+  },
+  {
     name: "SAN'S CHAOTIC MOVES",
     type: "building",
     description:
@@ -67,8 +77,6 @@ export const UPGRADES = [
     condition: 10,
     target: 7,
     purchased: false,
-    price: 700,
-    effect: 1.2,
   },
   {
     name: "Wooyoung's Infinite Yelling",
@@ -113,5 +121,16 @@ export const UPGRADES = [
     purchased: false,
     price: 100,
     effect: 2,
+  },
+  {
+    name: "SAN'S HIPS ARE CRAZY",
+    type: "building",
+    description:
+      "San's ability to move his hips without trouble improves every San's CpS by 50 percents",
+    condition: 50,
+    target: 1,
+    purchased: false,
+    price: 100,
+    effect: 1.2,
   },
 ];
