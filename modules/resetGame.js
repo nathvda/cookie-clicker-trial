@@ -10,6 +10,7 @@ export function resetGame(joueur) {
   let reset = confirm("Are you sure you want to reset?");
   if (reset == true) {
     joueur = Player;
+    localStorage.removeItem("gamesave");
 
     saveGame(joueur);
     loadGame(joueur);
@@ -17,7 +18,7 @@ export function resetGame(joueur) {
     displayAchievements(joueur);
     displayValueList(joueur);
     createUpgrades(joueur);
-    window.location.reload();
+    // window.location.reload();
   } else {
     console.log("Reset annulé");
   }

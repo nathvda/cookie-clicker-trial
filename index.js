@@ -18,10 +18,6 @@ displayAchievements(Joueur);
 updateScore(Joueur);
 displayScore(Joueur);
 
-setInterval(() => {
-  createBonus(Joueur);
-}, 1000 * Joueur.stats.frequencyBonus);
-
 document.getElementById("reset").addEventListener("click", () => {
   resetGame(Joueur);
 });
